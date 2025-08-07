@@ -1,0 +1,40 @@
+{% load static %}
+<a href="{{ event.link }}" target="_blank" class="flex-1">
+  <!-- events card -->
+  <div class="mt-5 md:mt-0 md:mb-5 event-card xs:max-w-[212px] sm:max-w-[212px] md:max-w-[212px] lg:max-w-[290px] xl:max-w-[407px] w-full">
+    <div class="flex items-center gap-[7px] lg:gap-[11px] xs:gap-[6.13px]">
+      <p class="h-3.5 w-3.5 rounded-full bg-(--primary-300) lg:w-5 lg:h-5 xs:w-[10.39px] xs:h-[10.39px]"></p>
+      <p class="font-jakarta flex items-center justify-center text-[13px] font-extrabold lg:text-[21.93px] xs:text-[11.39px]">
+        {{ event.start_date|date:'d' }}&nbsp; <span class="font-medium"> {{ event.start_date|date:'M' }}</span>
+      </p>
+    </div>
+
+    <!-- card ctn -->
+    <div class="mobile:max-xxs:gap-2.5 mt-3 flex items-center justify-between gap-[24px] rounded-[24px] bg-(--primary-500) xs:flex-col lg:p-2.5 lg:pb-[29px] lg:gap-[31px] lg:rounded-[29px] xs:mt-[6px] lg:mt-[13px] xs:p-[5.2px] xs:pb-[15.07px] xs:rounded-[15.07px]">
+      <div class="mobile:max-xxs:min-w-[120px] relative h-[130px] min-w-[142px] flex-1 overflow-hidden rounded-l-[24px] lg:rounded-[20px] xs:w-full xs:aspect-[407/216] xs:rounded-[10.39px]">
+        <img class="absolute inset-0 h-full w-full rounded-l-[24px] object-cover object-top xs:relative lg:rounded-[20px] lg:max-w-full xs:rounded-[10.39px]" src="{{ event.get_event_image }}" alt="{{ event.title|slugify }}-event image" />
+      </div>
+
+      <div class="font-jakarta mobile:max-xxs:min-w-auto mobile:max-xxs:mr-4 mr-[27px] flex min-w-[165px] flex-1 flex-col gap-[10px] lg:m-0 lg:w-full lg:gap-[25px] lg:px-[12.5px] xs:m-0 xs:px-[6.5px] xs:gap-[12.99px] xs:w-full">
+        <div class="flex flex-col gap-[9px]">
+          <p class="line-clamp-2 text-[15.26px] leading-[18px] font-bold lg:text-[20px] lg:leading-6 lg:gap-[15.18px] lg:min-h-[48px] xs:text-[10.39px] xs:leading-3 xs:min-h-[24px] xs:gap-[7.89px]">
+            {{ event.title }}
+          </p>
+
+          <p class="line-clamp-2 text-[11px] leading-[14px] font-medium text-(--primary-400) lg:text-[15px] lg:leading-5 lg:min-h-[40px] xs:min-h-[20px] xs:text-[7.79px] xs:leading-2.5">
+            {{ event.description|striptags }}
+          </p>
+        </div>
+        {% if event.city %}
+        <div class="flex items-center gap-[7.85px] lg:gap-[13.23px]">
+          <img src="{% static "home/assets/img/icons/location.svg" %}" alt="location" class="xs:w-[12.99px] xs:h-[12.99px] lg:w-[25px] lg:h-[25px]" />
+          <p class="line-clamp-1 text-[10.9px] leading-[16px] font-medium text-(--primary-300) lg:text-[18.38px] lg:leading-7 xs:text-[9.55px] xs:leading-[14px]">
+            {{ event.city.get_city_name }}, {{ event.city.region.state_code }}
+          </p>
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</a>

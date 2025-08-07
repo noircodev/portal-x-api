@@ -1,0 +1,221 @@
+{% extends "account/base/base.html" %}
+{% load static %}
+{% block title %} Search Keywords {% endblock title %}
+{% block extra_head %}
+{% endblock extra_head %}
+{% block content %}
+
+<!-- [ Main Content ] start -->
+<div class="row">
+  <!-- [ sample-page ] start -->
+  <div class="col-sm-12">
+    <div class="card border-0 table-card user-profile-list">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover" id="pc-dt-simple">
+            <thead>
+              <tr>
+                <th>Keyword</th>
+                <th>Added By</th>
+                <th>Location</th>
+                <th>Date Added</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for keyword in keywords %}
+              <tr>
+                <td>
+                  <div class="d-inline-block align-middle">
+                    <div class="d-inline-block">
+                      <h6 class="m-b-0">{{keyword.query}}</h6>
+                    </div>
+                  </div>
+                </td>
+                <td>{{keyword.get_added_by}}</td>
+                <td>{{keyword.get_location_count}}</td>
+                <td>{{keyword.timestamp|date}}</td>
+                <td>
+                  {% if keyword.active %}
+                  <span class="badge bg-light-success">Active</span>
+                  {% else %}
+                  <span class="badge bg-light-danger">Disabled</span>
+                  {% endif %}
+                  <div class="overlay-edit">
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item m-0"><button class="avtar avtar-s btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateKeywordModal{{keyword.id}}"><i class="ti ti-pencil f-18"></i></button></li>
+                      <li class="list-inline-item m-0"><button class="avtar avtar-s btn bg-white btn-link-danger" data-bs-toggle="modal" data-bs-target="#deleteKeywordModal{{keyword.id}}"><i class="ti ti-trash f-18"></i></button></li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- [ sample-page ] end -->
+</div>
+<!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+{% block modal %}
+
+
+{% include "account/includes/modal/update_keyword_modal.html" with queryset=keywords %}
+{% include "account/includes/modal/delete_keyword_modal.html" with queryset=keywords %}
+
+
+<div class="modal fade login-modal" id="login-modal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content card mb-0 user-card">
+      <div class="modal-body">
+        <div class="d-flex mb-4">
+          <div class="flex-grow-1 me-3">
+            <h4 class="f-w-500 mb-1">Login with your email</h4>
+            <p class="mb-3">Don't have an Account?<a href="#" class="link-primary ms-2" data-bs-toggle="modal" data-bs-target="#registration-modal">Create Account</a></p>
+          </div>
+          <div class="flex-shrink-0">
+            <a href="#" class="avtar avtar-s btn-link-danger btn-pc-default" data-bs-dismiss="modal">
+              <i class="ti ti-x f-20"></i>
+            </a>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email address</label>
+          <input type="email" class="form-control" placeholder="Email Address" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" placeholder="Password" />
+        </div>
+        <div class="d-flex mt-1 justify-content-between align-items-center">
+          <div class="form-check">
+            <input class="form-check-input input-primary" type="checkbox" id="customCheckc1" checked="" />
+            <label class="form-check-label text-muted" for="customCheckc1">Remember me?</label>
+          </div>
+        </div>
+        <div class="d-grid mt-4">
+          <button type="button" class="btn btn-primary">Login</button>
+        </div>
+        <div class="saprator my-3">
+          <span>Or continue with</span>
+        </div>
+        <div class="text-center">
+          <ul class="list-inline mx-auto mt-3 mb-0">
+            <li class="list-inline-item">
+              <a href="https://www.facebook.com/" class="avtar avtar-s rounded-circle bg-facebook" target="_blank">
+                <i class="fab fa-facebook-f text-white"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://twitter.com/" class="avtar avtar-s rounded-circle bg-twitter" target="_blank">
+                <i class="fab fa-twitter text-white"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://myaccount.google.com/" class="avtar avtar-s rounded-circle bg-googleplus" target="_blank">
+                <i class="fab fa-google text-white"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade login-modal" id="registration-modal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content card mb-0 user-card">
+      <div class="modal-body">
+        <div class="d-flex mb-4">
+          <div class="flex-grow-1 me-3">
+            <h4 class="f-w-500 mb-1">Register with your email</h4>
+            <p class="mb-3">Already have an Account?
+              <a href="#" class="link-primary" data-bs-toggle="modal" data-bs-target="#login-modal">Log in</a></p>
+          </div>
+          <div class="flex-shrink-0">
+            <a href="#" class="avtar avtar-s btn-link-danger btn-pc-default" data-bs-dismiss="modal">
+              <i class="ti ti-x f-20"></i>
+            </a>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-control" placeholder="Enter Name" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email address</label>
+          <input type="email" class="form-control" placeholder="Enter Email Address" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" placeholder="Enter Password" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Confirm Password</label>
+          <input type="password" class="form-control" placeholder="Enter Confirm Password" />
+        </div>
+        <div class="d-flex mt-1 justify-content-between align-items-center">
+          <div class="form-check">
+            <input class="form-check-input input-primary" type="checkbox" id="customCheckc1" checked="" />
+            <label class="form-check-label text-muted" for="customCheckc1">I agree to all the Terms & Condition</label>
+          </div>
+        </div>
+        <div class="d-grid mt-4">
+          <button type="button" class="btn btn-primary">Login</button>
+        </div>
+        <div class="saprator my-3">
+          <span>Or continue with</span>
+        </div>
+        <div class="text-center">
+          <ul class="list-inline mx-auto mt-3 mb-0">
+            <li class="list-inline-item">
+              <a href="https://www.facebook.com/" class="avtar avtar-s rounded-circle bg-facebook" target="_blank">
+                <i class="fab fa-facebook-f text-white"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://twitter.com/" class="avtar avtar-s rounded-circle bg-twitter" target="_blank">
+                <i class="fab fa-twitter text-white"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://myaccount.google.com/" class="avtar avtar-s rounded-circle bg-googleplus" target="_blank">
+                <i class="fab fa-google text-white"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock modal %}
+
+{% block extra_script %}
+
+<!-- [Page Specific JS] start -->
+
+<!-- [Page Specific JS] end -->
+<script>
+  $(function() {
+    // "use strict";
+    const dataTable = new simpleDatatables.DataTable('#pc-dt-simple', {
+      sortable: false,
+      perPage: 25
+    });
+
+
+  });
+
+</script>
+
+{% endblock extra_script %}
+
+
+<!-- End Header -->

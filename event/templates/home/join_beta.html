@@ -1,0 +1,115 @@
+{% extends "home/base/base.html" %}
+{% block title %}Join Beta {% endblock title %}
+{% block extra_head %}
+{% endblock extra_head %}
+
+
+{% block content %}
+<div class="mt-[33.86px] pl-[25px] pr-[27px] md:w-[647px] md:ml-auto md:mr-auto">
+  <div class="font-jakarta">
+    <p class="text-[19.88px] font-bold text-(--primary-100)">
+      Join the Beta
+    </p>
+    <p class="text-xs">
+      Be among our Beta to enjoy unlimited offers of events
+    </p>
+  </div>
+
+  {% if form.errors %}
+  <div id="error-message" class="bg-red-500/10 backdrop-blur-lg relative p-6 w-full mx-auto rounded-xl border border-red-500/20 backdrop-blur-lg mt-5 relative">
+    <div class="flex items-start space-x-4">
+      <!-- Error Icon -->
+      <div class="flex-shrink-0 pt-1">
+        <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+
+      <!-- Content -->
+      <div class="flex-1 space-y-3">
+        <h3 class="text-xl font-semibold text-red-100">Submission Failed</h3>
+        <p class="text-red-200/80 text-sm">Please fix the following issues:</p>
+
+        <!-- Error List -->
+        <ul class="space-y-2.5 max-h-48 overflow-y-auto pr-4">
+          {% if form.non_field_errors %}
+          {% for error in form.non_field_errors %}
+          <li class="flex items-start space-x-2.5 text-red-100/90 group">
+            <svg class="w-4 h-4 flex-shrink-0 mt-0.5 text-red-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <span class="flex-1 text-sm">{{error}}</span>
+          </li>
+          {% endfor %}
+          {% endif %}
+
+          {% for field in form %}
+          {% for error in field.errors %}
+          <li class="flex items-start space-x-2.5 text-red-100/90 group">
+            <svg class="w-4 h-4 flex-shrink-0 mt-0.5 text-red-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <span class="flex-1 text-sm">{{error}}</span>
+          </li>
+          {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Close Button -->
+      <button onclick="hideError()" class="absolute top-4 right-4 p-1.5 hover:bg-red-500/20 rounded-lg transition-colors">
+        <svg class="w-5 h-5 text-red-400 hover:text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  {% endif %}
+
+  <form id="betaRegistrationForm" method="POST" action="." class="mt-[37px]" novalidate>
+    {% csrf_token %}
+    <div class="flex flex-col gap-6">
+      <div>
+        <label for="first_name" class="text-[13.03px] font-medium font-jakarta">First Name</label>
+        <input type="text" id="first_name" name="first_name" value="{{form.first_name.value|default_if_none:''}}" placeholder="Enter your first name" class="w-full text-sm placeholder:text-(--gray-100) h-14 rounded-[6px] p-4 bg-(--gray-200) outline-none focus:ring-2 focus:ring-(--border-rings)" required />
+        <p id="firstNameError" class="error-message hidden text-red-500 text-sm mt-1"></p>
+      </div>
+
+      <div>
+        <label for="last_name" class="text-[13.03px] font-medium font-jakarta">Last Name</label>
+        <input type="text" id="last_name" name="last_name" value="{{form.last_name.value|default_if_none:''}}" placeholder="Enter your last name" class="w-full text-sm placeholder:text-(--gray-100) h-14 rounded-[6px] p-4 bg-(--gray-200) outline-none focus:ring-2 focus:ring-(--border-rings)" required />
+        <p id="lastNameError" class="error-message hidden text-red-500 text-sm mt-1"></p>
+      </div>
+
+      <div>
+        <label for="email" class="text-[13.03px] font-medium font-jakarta">Email Address</label>
+        <input type="email" id="email" name="email" value="{{form.email.value|default_if_none:''}}" placeholder="Enter your email address" class="w-full text-sm placeholder:text-(--gray-100) h-14 rounded-[6px] p-4 bg-(--gray-200) outline-none focus:ring-2 focus:ring-(--border-rings)" required />
+        <p id="emailError" class="error-message hidden text-red-500 text-sm mt-1"></p>
+      </div>
+
+      <div>
+        <label for="phone" class="text-[13.03px] font-medium font-jakarta">Phone Number</label>
+        <input type="tel" id="phone" name="phone" value="{{form.phone.value|default_if_none:''}}" placeholder="Enter your phone number" class="w-full text-sm placeholder:text-(--gray-100) h-14 rounded-[6px] p-4 bg-(--gray-200) outline-none focus:ring-2 focus:ring-(--border-rings)" required />
+        <p id="phoneError" class="error-message hidden text-red-500 text-sm mt-1"></p>
+      </div>
+    </div>
+
+    <button type="submit" class="px-10 py-2.5 rounded-lg bg-(--blue-100) text-(--primary-900) w-full mt-[34px] font-jakarta font-bold flex items-center justify-center h-12">
+      Join the Beta
+    </button>
+  </form>
+
+</div>
+
+
+{% endblock content %}
+
+{% block extra_script %}
+<script>
+  // Hide error
+  function hideError() {
+    document.getElementById('error-message').classList.add('hidden');
+  }
+
+</script>
+{% endblock extra_script %}

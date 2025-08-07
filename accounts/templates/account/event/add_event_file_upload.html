@@ -1,0 +1,117 @@
+{% extends "account/base/base.html" %}
+{% load static %}
+{% block title %} Add Search Phrases {% endblock title %}
+{% block extra_head %}
+
+<!-- [Page specific CSS] start -->
+<!-- fileupload-custom css -->
+<link rel="stylesheet" href="{% static 'dash/assets/css/plugins/dropzone.min.css' %}" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" />
+<!-- [Page specific CSS] end -->
+{% endblock extra_head %}
+{% block content %}
+
+<!-- [ Main Content ] start -->
+<div class="row">
+  <!-- prettier-ignore -->
+  <div class="col-md-10 col-xxl-9 mb-4">
+    <h5>Upload CSV File</h5>
+    <p class="text-muted"> Please upload a CSV file to create search phrases. You can also download a sample CSV file below to see the required format.</p>
+    <div>
+      <a class="btn btn-sm btn-light-dark rounded-pill px-2" role="button" target="_blank" href=".">
+        <i class="ti ti-external-link me-1"></i>
+        Download Sample CSV
+      </a>
+    </div>
+  </div>
+
+</div>
+<div class="row">
+  <!-- [ file-upload ] start -->
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-header">
+        <h5> Upload CSV File Below</h5>
+      </div>
+      <div class="card-body">
+        <form action="." class="dropzone">
+          <div class="fallback">
+            <input name="file" type="file" multiple />
+          </div>
+        </form>
+        <div class="text-center m-t-20">
+          <button class="btn btn-primary">Upload Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- [ file-upload ] end -->
+
+
+  <div class="col-sm-12">
+
+    <div class="card">
+
+      <form action="." method="post" id="pastedKeywordForm">
+        {% csrf_token %}
+        <div class="card-header">
+          <h5>Paste CSV File</h5>
+        </div>
+        <div class="card-body">
+          <input class="form-control" id="paste_csv" type="text" placeholder="Paste your search keywords here..." />
+          <input type="hidden" name="keyword" id="keywordInput">
+          <input type="hidden" name="action" value="pasted_csv">
+        </div>
+        <div class="text-center m-t-20 mb-5">
+          <button class="btn btn-primary">Upload Now</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+<!-- [ Main Content ] end -->
+{% endblock content %}
+
+
+
+{% block extra_script %}
+
+<!-- [Page Specific JS] start -->
+<!-- file-upload Js -->
+<script src="{% static "dash/assets/js/plugins/dropzone-amd-module.min.js" %}"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+
+
+
+<script>
+  const pastedKeywordInput = document.getElementById('paste_csv');
+  const hiddenInput = document.getElementById('keywordInput');
+  const pastedKeywordForm = document.getElementById('pastedKeywordForm');
+
+  const tagify = new Tagify(pastedKeywordInput, {
+    delimiters: ",",
+    duplicate: false
+  });
+
+  // Update hidden input and manually submit form
+  pastedKeywordForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const tags = tagify.value.map(item => item.value).join(', ');
+    hiddenInput.value = tags;
+    console.log("Hidden input value before submission:", tags);
+
+    pastedKeywordForm.submit();
+  });
+
+</script>
+
+
+
+
+
+<!-- [Page Specific JS] end -->
+{% endblock extra_script %}

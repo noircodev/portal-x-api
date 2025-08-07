@@ -1,0 +1,108 @@
+{% if version %}
+
+<div class="card">
+  <div class="card-body">
+    <div class="d-flex align-items-center mb-2">
+      <h6 class="mb-0">Current Version</h6>
+      <span class="badge bg-primary ms-2">#{{version.commit_hash}}</span>
+    </div>
+    <div class="d-flex align-items-start">
+      <div class="flex-shrink-0">
+        <i class="ph-duotone ph-tag-chevron text-primary f-30"></i>
+      </div>
+      <div class="flex-grow-1 ms-3">
+        <div class="d-inline-flex align-items-center mb-2">
+          <h6 class="mb-0"><u>{{version.version}}</u></h6>
+          <span class="badge bg-light-success ms-2">Latest</span>
+        </div>
+        <p class="mb-0 text-muted">{{version.release_notes}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% comment %}
+<div class="card">
+  <div class="card-body">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h5 class="mb-0">Quick Transfer</h5>
+      <div class="dropdown">
+        <a class="avtar avtar-s btn-link-secondary dropdown-toggle arrow-none" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="ti ti-dots-vertical f-18"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <a class="dropdown-item" href="#">Today</a>
+          <a class="dropdown-item" href="#">Weekly</a>
+          <a class="dropdown-item" href="#">Monthly</a>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex align-items-center justify-content-between gap-2 my-3">
+      <a href="#" class="avtar border border-secondary rounded-circle btn-light-secondary">
+        <i class="ti ti-plus f-20"></i>
+      </a>
+      <a href="#" class="avtar"><img class="rounded-circle img-fluid" src="../assets/images/user/avatar-1.jpg" alt="User image" /></a>
+      <a href="#" class="avtar"><img class="rounded-circle img-fluid" src="../assets/images/user/avatar-2.jpg" alt="User image" /></a>
+      <a href="#" class="avtar"><img class="rounded-circle img-fluid" src="../assets/images/user/avatar-3.jpg" alt="User image" /></a>
+      <a href="#" class="avtar"><img class="rounded-circle img-fluid" src="../assets/images/user/avatar-4.jpg" alt="User image" /></a>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item px-0">
+        <div class="d-flex align-items-center">
+          <div class="flex-shrink-0">
+            <img src="../assets/images/user/avatar-1.jpg" alt="img" class="wid-30 rounded-circle" />
+          </div>
+          <div class="flex-grow-1 ms-3">
+            <div class="row g-1">
+              <div class="col-6">
+                <h6 class="mb-0">Ashton Cox</h6>
+                <p class="text-muted mb-0">11th Sep 2020</p>
+              </div>
+              <div class="col-6 text-end">
+                <h5 class="mb-1 text-danger">-$26</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="list-group-item px-0">
+        <div class="d-flex align-items-center">
+          <div class="flex-shrink-0">
+            <img src="../assets/images/user/avatar-2.jpg" alt="img" class="wid-30 rounded-circle" />
+          </div>
+          <div class="flex-grow-1 ms-3">
+            <div class="row g-1">
+              <div class="col-6">
+                <h6 class="mb-0">Starbucks Cafe</h6>
+                <p class="text-muted mb-0">11th Sep 2020</p>
+              </div>
+              <div class="col-6 text-end">
+                <h5 class="mb-1 text-success">-$750.00</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="list-group-item px-0">
+        <div class="d-flex align-items-center">
+          <div class="flex-shrink-0">
+            <img src="../assets/images/widget/img-acitivity-3.svg" alt="img" class="wid-30 rounded-circle" />
+          </div>
+          <div class="flex-grow-1 ms-3">
+            <div class="row g-1">
+              <div class="col-6">
+                <h6 class="mb-0">Bradley Greer</h6>
+                <p class="text-muted mb-0">11th Sep 2020</p>
+              </div>
+              <div class="col-6 text-end">
+                <h5 class="mb-1 text-danger">-$26</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+{% endcomment %}

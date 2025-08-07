@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %} {% endblock title %} | Portal X </title>
+  {% include "home/includes/og_meta.html" %}
+  {% block extra_head %}
+  {% endblock extra_head %}
+  {% include "home/base/style.html" %}
+</head>
+
+<body class="bg-(--background-color) pt-[50px] text-white lg:pt-[148px] md:pt-[77px]">
+  <div id="page-loader" class="fixed inset-0 z-[9999] hidden items-center justify-center">
+    <div class="loader-container">
+      <div class="loader"></div>
+    </div>
+  </div>
+  {% include "home/base/header.html" %}
+  <main id="contents" class="max-w-[2350px] mx-auto" style="min-height:65vh;">
+    {% block content %}
+    {% endblock content %}
+  </main>
+  {% include "home/base/footer.html" %}
+</body>
+{% include "home/base/script.html" %}
+
+{% block extra_script %}
+
+{% endblock extra_script %}
+
+</html>

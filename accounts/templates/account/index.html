@@ -1,0 +1,326 @@
+{% extends "account/base/base.html" %}
+{% load static %}
+{% load humanize %}
+{% load app_version %}
+{% block title %} Dashboard {% endblock title %}
+
+
+{% block extra_head %}
+
+{% endblock extra_head %}
+
+{% block content %}
+<!-- [ Main Content ] start -->
+<div class="row">
+  <!-- [ Row 1 ] start -->
+  <div class="col-md-12 col-xxl-4">
+    <div class="card statistics-card-1">
+      <div class="card-body">
+        <img src="{% static 'dash/assets/images/widget/img-status-2.svg' %}" alt="img" class="img-fluid img-bg" />
+        <div class="d-flex align-items-center">
+          <div class="avtar bg-brand-color-1 text-white me-3">
+            <i class="ph-duotone ph-microphone-stage f-26"></i>
+          </div>
+          <div>
+            <p class="text-muted mb-0">Events</p>
+            <div class="d-flex align-items-end">
+              <h2 class="mb-0 f-w-500">134.6K</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xxl-4">
+    <div class="card statistics-card-1">
+      <div class="card-body">
+        <img src="{% static 'dash/assets/images/widget/img-status-1.svg' %}" alt="img" class="img-fluid img-bg" />
+        <div class="d-flex align-items-center">
+          <div class="avtar bg-brand-color-2 text-white me-3">
+            <i class="ph-duotone ph-list-magnifying-glass f-26"></i>
+          </div>
+          <div>
+            <p class="text-muted mb-0">Search Phrases</p>
+            <div class="d-flex align-items-end">
+              <h2 class="mb-0 f-w-500">8.57k</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xxl-4">
+    <div class="card statistics-card-1">
+      <div class="card-body">
+        <img src="{% static 'dash/assets/images/widget/img-status-3.svg' %}" alt="img" class="img-fluid img-bg" />
+        <div class="d-flex align-items-center">
+          <div class="avtar bg-brand-color-3 text-white me-3">
+            <i class="ph-duotone ph-magnifying-glass f-26"></i>
+          </div>
+          <div>
+            <p class="text-muted mb-0">Searches</p>
+            <div class="d-flex align-items-end">
+              <h2 class="mb-0 f-w-500">278</h2>
+              <span class="badge bg-light-success ms-2"><i class="ti ti-chevrons-up"></i> 7%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- [ Row 1 ] end -->
+
+  <div class="row">
+    <div class="col-xl-8">
+      <div class="card">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <h5>Reports</h5>
+          <i class="ph-duotone ph-info f-20 ms-1" data-bs-toggle="tooltip" data-bs-title="Reports"></i>
+        </div>
+        <div class="card-body">
+          <div class="d-sm-flex align-items-center justify-content-between">
+            <ul class="list-inline me-auto mb-3 mb-sm-0">
+              <li class="list-inline-item"> Visitor </li>
+              <li class="list-inline-item">
+                <button id="chart-line" class="avtar avtar-s btn btn-light-secondary">
+                  <i class="ph-duotone ph-chart-line f-18"></i>
+                </button>
+              </li>
+              <li class="list-inline-item">
+                <button id="chart-bar" class="avtar avtar-s btn btn-light-secondary">
+                  <i class="ph-duotone ph-chart-bar f-18"></i>
+                </button>
+              </li>
+              <li class="list-inline-item">
+                <button id="chart-area" class="avtar avtar-s btn btn-light-secondary">
+                  <i class="ph-duotone ph-wave-sine f-18"></i>
+                </button>
+              </li>
+            </ul>
+            <div class="d-flex align-items-center">
+              <h3 class="mb-0 me-1">$ 82.99</h3>
+              <span class="badge bg-success"><i class="ti ti-arrow-narrow-up"></i> 2.6%</span>
+            </div>
+          </div>
+          <div id="reports-chart"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4">
+
+      {% current_app_version %}
+
+
+      <div class="card">
+        <div class="card-header d-flex align-items-center justify-content-between py-3">
+          <h5 class="mb-0">My Task</h5>
+          <div class="dropdown">
+            <a class="avtar avtar-s btn-link-secondary dropdown-toggle arrow-none" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="ti ti-dots-vertical f-18"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end">
+              <a class="dropdown-item" href="#">Today</a>
+              <a class="dropdown-item" href="#">Weekly</a>
+              <a class="dropdown-item" href="#">Monthly</a>
+            </div>
+          </div>
+        </div>
+        <ul class="list-group list-group-flush border-top-0">
+          <li class="list-group-item">
+            <div class="d-flex align-items-start">
+              <div class="flex-grow-1 me-2">
+                <h6 class="mb-0">Follow up client for feedback</h6>
+                <p class="my-1"><i class="ti ti-archive"></i> Sending report</p>
+                <span class="badge bg-danger rounded-pill">00 : 15</span>
+              </div>
+              <div class="flex-shrink-0">
+                <a href="#" class="avtar avtar-s btn-link-secondary">
+                  <i class="ti ti-circle-check text-success f-18"></i>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="d-flex align-items-start">
+              <div class="flex-grow-1 me-2">
+                <h6 class="mb-0">Follow up client for feedback</h6>
+                <p class="my-1"><i class="ti ti-folder"></i> Received report</p>
+                <span class="badge bg-success rounded-pill">00 : 30</span>
+              </div>
+              <div class="flex-shrink-0">
+                <a href="#" class="avtar avtar-s btn-link-secondary">
+                  <i class="ti ti-circle-check f-18"></i>
+                </a>
+              </div>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-6 col-md-12">
+      <div class="card table-card">
+        <div class="card-header">
+          <h5>Visits by Location</h5>
+        </div>
+        <div class="card-body py-3 px-0">
+          <div class="table-responsive">
+            <table class="table table-hover table-borderless mb-0">
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="{% static 'dash/assets/images/widget/GERMANY.jpg' %}" alt="" class="img-fluid wid-30 rounded-1" />
+                      <h6 class="mb-0 ms-2">Germany</h6>
+                    </div>
+                  </td>
+                  <td class="text-end">38</td>
+                  <td><i class="ti ti-arrow-up text-success f-18 align-text-bottom"></i> 5.8%</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="{% static 'dash/assets/images/widget/USA.jpg' %}" alt="" class="img-fluid wid-30 rounded-1" />
+                      <h6 class="mb-0 ms-2">USA</h6>
+                    </div>
+                  </td>
+                  <td class="text-end">928</td>
+                  <td><i class="ti ti-arrow-down text-danger f-18 align-text-bottom"></i> 51.2%</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="{% static 'dash/assets/images/widget/AUSTRALIA.jpg' %}" alt="" class="img-fluid wid-30 rounded-1" />
+                      <h6 class="mb-0 ms-2">Australia</h6>
+                    </div>
+                  </td>
+                  <td class="text-end">674</td>
+                  <td><i class="ti ti-arrow-up text-success f-18 align-text-bottom"></i> 17.1%</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="{% static 'dash/assets/images/widget/UK.jpg' %}" alt="" class="img-fluid wid-30 rounded-1" />
+                      <h6 class="mb-0 ms-2">UK</h6>
+                    </div>
+                  </td>
+                  <td class="text-end">1,438</td>
+                  <td><i class="ti ti-arrow-down text-danger f-18 align-text-bottom"></i> 15.8%</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="{% static 'dash/assets/images/widget/BRAZIL.jpg' %}" alt="" class="img-fluid wid-30 rounded-1" />
+                      <h6 class="mb-0 ms-2">Brazil</h6>
+                    </div>
+                  </td>
+                  <td class="text-end">90</td>
+                  <td><i class="ti ti-arrow-up text-success f-18 align-text-bottom"></i> 9.8%</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="{% static 'dash/assets/images/widget/GERMANY.jpg' %}" alt="" class="img-fluid wid-30 rounded-1" />
+                      <h6 class="mb-0 ms-2">Germany</h6>
+                    </div>
+                  </td>
+                  <td class="text-end">123</td>
+                  <td><i class="ti ti-arrow-up text-success f-18 align-text-bottom"></i> 5.8%</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="{% static 'dash/assets/images/widget/USA.jpg' %}" alt="" class="img-fluid wid-30 rounded-1" />
+                      <h6 class="mb-0 ms-2">USA</h6>
+                    </div>
+                  </td>
+                  <td class="text-end">928</td>
+                  <td><i class="ti ti-arrow-down text-danger f-18 align-text-bottom"></i> 51.2%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6 col-md-12">
+      <div class="card latest-activity-card">
+        <div class="card-header">
+          <h5>Recent Activities</h5>
+        </div>
+        <div class="card-body">
+          <div class="latest-update-box">
+            <div class="row p-t-20 p-b-30">
+              <div class="col-auto text-end update-meta">
+                <p class="text-muted m-b-0 d-inline-flex">08:00 AM</p>
+                <div class="border border-2 border-success text-success update-icon">20</div>
+              </div>
+              <div class="col">
+                <a href="#!" class="d-inline-flex align-items-center">
+                  <h6 class="mb-0 me-2">Create report</h6>
+                  <span class="badge bg-success">Done</span>
+                </a>
+                <p class="text-muted m-b-0">The trip was an amazing and a life changing experience!!</p>
+              </div>
+            </div>
+            <div class="row p-b-30">
+              <div class="col-auto text-end update-meta">
+                <p class="text-muted m-b-0 d-inline-flex">08:20 AM</p>
+                <div class="border border-2 border-primary text-primary update-icon"><i class="ph-duotone ph-rocket"></i></div>
+              </div>
+              <div class="col">
+                <a href="#!" class="d-inline-flex align-items-center">
+                  <h6 class="mb-0 me-2">Create report</h6>
+                  <span class="badge bg-primary">Running</span>
+                </a>
+                <p class="text-muted m-b-0">Free courses for all our customers at A1 Conference Room - 9:00 am tomorrow!</p>
+              </div>
+            </div>
+            <div class="row p-b-30">
+              <div class="col-auto text-end update-meta">
+                <p class="text-muted m-b-0 d-inline-flex">08:20 AM</p>
+                <div class="border border-2 border-warning text-warning update-icon"><i class="ph-duotone ph-hand-palm"></i></div>
+              </div>
+              <div class="col">
+                <a href="#!" class="d-inline-flex align-items-center">
+                  <h6 class="mb-0 me-2">Create report</h6>
+                  <span class="badge bg-warning">Pending</span>
+                </a>
+                <p class="text-muted m-b-0">Free courses for all our customers at A1 Conference Room - 9:00 am tomorrow!</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-auto text-end update-meta">
+                <p class="text-muted m-b-0 d-inline-flex">09:15 AM</p>
+                <div class="border border-2 border-danger text-danger update-icon">N</div>
+              </div>
+              <div class="col">
+                <a href="#!" class="d-inline-flex align-items-center">
+                  <h6 class="mb-0 me-2">Create report</h6>
+                  <span class="badge bg-danger">Not Start</span>
+                </a>
+                <p class="text-muted m-b-0">Happy Hour! Free drinks at <span> <a href="#!" class="text-primary">Cafe-Bar all </a> </span>day long!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- [ Main Content ] end -->
+{% endblock content %}
+
+{% block modal %}
+
+{% endblock modal %}
+
+{% block extra_script %}
+<script src="{% static "dash/assets/js/plugins/apexcharts.min.js" %}"></script>
+
+<script src="{% static "dash/assets/js/widgets/reports-chart.js" %}"></script>
+
+{% endblock extra_script %}

@@ -1,0 +1,65 @@
+{% extends "account/base/base.html" %}
+{% load static %}
+{% block title %} Beta Subscribers {% endblock title %}
+{% block extra_head %}
+{% endblock extra_head %}
+{% block content %}
+<!-- [ Main Content ] start -->
+<div class="row justify-content-center">
+  <!-- [ stiped-table ] start -->
+  <div class="col-md-11">
+    {% if subscribers %}
+    <div class="card">
+      <div class="card-header">
+        <h5>Beta Subscriber{{subscribers.count|pluralize}}</h5>
+      </div>
+      <div class="card-body table-border-style">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for subscriber in subscribers %}
+
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{subscriber.first_name}}</td>
+                <td>{{subscriber.last_name}}</td>
+                <td>{{subscriber.phone}}</td>
+                <td><a href="mailto:{{subscriber.email}}">{{subscriber.email}} </a></td>
+              </tr>
+              {% endfor %}
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="card">
+      <div class="card-header">
+        <h5>There is currently no beta subscriber</h5>
+      </div>
+    </div>
+
+    {% endif %}
+  </div>
+  <!-- [ stiped-table ] end -->
+</div>
+<!-- [ Main Content ] end -->
+
+{% endblock content %}
+{% block modal %}
+{% endblock modal %}
+{% block extra_script %}
+
+{% endblock extra_script %}
+<!-- End Header -->

@@ -1,0 +1,17 @@
+from django.conf import settings
+VERIFICATION_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
+# Fallback testing key, this may not work in production
+DEFAULT_SITE_KEY = "1x00000000000000000000AA"
+DEFAULT_SECRET_KEY = "1x0000000000000000000000000000000AA"
+
+CLOUDFLARE_TURNSTILE_SITE_KEY = getattr(
+    settings, 'CLOUDFLARE_TURNSTILE_SITE_KEY', DEFAULT_SITE_KEY)
+CLOUDFLARE_TURNSTILE_SECRET_KEY = getattr(
+    settings, 'CLOUDFLARE_TURNSTILE_SECRET_KEY', DEFAULT_SECRET_KEY)
+
+
+SESSION_COOKIE_AGE = 1209600  # Two weeks
+
+
+SESSION_COOKIE_AGE = getattr(
+    settings, 'SESSION_COOKIE_AGE', SESSION_COOKIE_AGE)

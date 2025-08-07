@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<!-- [Head] start -->
+{% load static %}
+
+<head>
+  <title> {% block title %} {% endblock title %}| Portal X</title>
+  <!-- [Meta] -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  {% comment %} {% include "home/includes/og_meta.html" %} {% endcomment %}
+  <link rel="icon" type="image/x-icon" href="{% static "home/assets/img/logo/favicon.png" %}">
+
+  {% include "account/base/style.html" %}
+
+
+  {% block extra_head %}
+  {% endblock extra_head %}
+
+
+</head>
+<!-- [Head] end -->
+<!-- [Body] Start -->
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr" data-pc-theme="light">
+  <style>
+    .swal2-container {
+      z-index: 200000;
+    }
+
+    .swal2-popup {
+      font-size: 13px !important;
+    }
+
+    .swal2-title {
+      font-size: 14px !important;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      line-height: 1.5em;
+    }
+
+    .main-container {
+      min-height: 70vh;
+    }
+
+  </style>
+  <!-- [ Pre-loader ] start -->
+  <div class="loader-bg">
+    <div class="loader-track">
+      <div class="loader-fill"></div>
+    </div>
+  </div>
+  <!-- [ Pre-loader ] End -->
+
+
+  {% include "account/base/sidebar.html" %}
+  {% include "account/base/header.html" %}
+
+
+
+  <!-- [ Main Content ] start -->
+  <div class="pc-container">
+    <div class="pc-content">
+      <!-- [ breadcrumb ] start -->
+      <div class="page-header">
+        <div class="page-block">
+          <div class="row align-items-center">
+            <div class="col-md-12">
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url "account_home" %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="javascript: void(0)">Dashboard</a></li>
+                <li class="breadcrumb-item" aria-current="page"> Dashboard</li>
+              </ul>
+            </div>
+            <div class="col-md-12">
+              <div class="page-header-title">
+                <h2 class="mb-0"> Dashboard</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- [ breadcrumb ] end -->
+
+      {% block content %}
+
+      {% endblock content %}
+
+    </div>
+  </div>
+  <!-- [ Main Content ] end -->
+
+  {% include "account/base/footer.html" %}
+  {% include "account/base/script.html" %}
+
+  {% if messages %}
+
+  <script>
+    $(function() {
+      var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 6000
+      });
+
+      {% for message in messages %}
+
+      Toast.fire({
+        icon: '{{message.tags}}',
+        title: '{{message}}'
+      })
+      {% endfor %}
+
+    })
+
+  </script>
+
+  {% endif %}
+
+  {% block extra_script %}
+  {% endblock extra_script %}
+
+  {% include "account/base/off_canvas.html" %}
+
+  {% block modal %}
+  {% endblock modal %}
+
+
+
+</body>
+<!-- [Body] end -->
+
+</html>

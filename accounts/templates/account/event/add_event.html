@@ -1,0 +1,162 @@
+{% extends "account/base/base.html" %}
+{% load static %}
+{% block title %} Add Event {% endblock title %}
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<link rel="stylesheet" href="{% static 'dash/assets/css/misc.css' %}" />
+
+{% endblock extra_head %}
+{% block content %}
+
+<!-- [ Main Content ] start -->
+<div class="row justify-content-center">
+  <!-- [ sample-page ] start -->
+  <div class="col-lg-11 col-xl-10">
+    <form action="." method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="card">
+        <div class="card-header">
+          <h5>Add Event</h5>
+        </div>
+        <div class="card-body">
+
+
+          {% if event %}
+          <input type="hidden" name="instance_id" id="instance_id" value="{{event.id}}">
+          {% endif %}
+
+          <div class="mb-3">
+            <div class="upload-container">
+              <div class="upload-info">
+                <p><span class="required">*</span> Recommended resolution is 640×640 with optimal file size</p>
+              </div>
+
+              <div class="upload-area" id="uploadArea">
+                <div class="placeholder-container">
+                  {% if event %}
+                  <img src="{{event.get_event_image}}" alt="Placeholder" class="placeholder-image" id="placeholderImage">
+                  {% endif %}
+                  <div class="placeholder-overlay">
+                    <span class="upload-icon">📸</span>
+                    <div class="upload-text">Click to Upload or Drag & Drop</div>
+                    <div class="upload-subtext">PNG, JPG files supported</div>
+                  </div>
+                </div>
+                <input type="file" name="event_image" accept="image/png,image/jpg,image/jpeg" id="fileInput" class="file-input">
+              </div>
+
+              <div class="preview-container" id="previewContainer">
+                <img id="previewImage" class="preview-image" alt="Preview">
+                <div class="preview-overlay">
+                  <button type="button" class="remove-btn" id="removeBtn">
+                    🗑️ Remove Image
+                  </button>
+                </div>
+              </div>
+
+              <div class="file-info" id="fileInfo" style="display: none;">
+                <div class="file-details">
+                  <div class="file-name" id="fileName"></div>
+                  <div class="file-size" id="fileSize"></div>
+                </div>
+                <span class="status-badge">✓ Ready</span>
+              </div>
+
+              <div class="error-message" id="errorMessage"></div>
+
+
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Event Name <span class="text-danger">*</span> </label>
+            <input type="text" name="title" value="{{form.title.value|default_if_none:""}}" required class="form-control" placeholder="Enter Event Name" />
+          </div>
+
+          <div class="row">
+            <div class="mb-3 col-md-5">
+              <label class="form-label" for="venue">Event Venue</label>
+              <input type="text" name="venue" value="{{form.venue.value|default_if_none:""}}" required class="form-control" id="venue" />
+            </div>
+            <div class="mb-3 col-md-4">
+              <label class="form-label" for="city">Event City</label>
+              <select id="city" name="city" required class="form-select select2-input">
+                <option selected>Select Event City</option>
+                {% for city in cities %}
+                <option {% if city.id == form.city.value %}selected{% endif %} value="{{city.id}}">{{city.get_city_name}}, {{city.region.state_code}} </option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="mb-3 col-md-3">
+              <label class="form-label" for="event_source">Event Source (readonly) </label>
+              <input readonly type="text" {% if event.event_source %} value="{{event.get_event_source_display}}" {% else %} value="Created by @{{user.username}}" {% endif %} class="form-control" id="event_source" />
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="mb-3 col-md-6">
+              <label class="form-label" for="start_date">Event Start Date {{form.start_date.value}} </label>
+              <input type="text" name="start_date" value="{{form.start_date.value|date:'Y-m-d'|default_if_none:''}}" placeholder="Select start date" required class="form-control" id="start_date" />
+            </div>
+            <div class="mb-3 col-md-6">
+              <label class="form-label" for="end_date">Event End Date</label>
+              <input type="text" name="end_date" value="{{form.end_date.value|date:'Y-m-d'|default_if_none:''}}" placeholder="Select end date" required class="form-control" id="end_date" />
+            </div>
+
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="link">Event Link</label>
+            <div class="input-group">
+              <span class="input-group-text ti ti-link"></span>
+              <input type="text" class="form-control" name="link" value="{{form.link.value|default_if_none:""}}" id="link" placeholder="Enter event URL" aria-describedby="inputGroupPrepend" required />
+            </div>
+          </div>
+
+
+          <div class="mb-3">
+            <label class="form-label">Event Description</label>
+            <textarea class="form-control" name="description" required placeholder="Enter Event Description">{{form.description.value|default_if_none:""|safe}} </textarea>
+          </div>
+
+          <div>
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="checkbox" name="featured" id="featured" {% if event.featured %} checked {% endif %} />
+              <label class="form-check-label" for="featured"> Feature this Event </label>
+            </div>
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="checkbox" name="valid" id="valid" {% if event.valid %}checked{% endif %} />
+              <label class="form-check-label" for="valid"> Active </label>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="card-footer text-end btn-page">
+          {% if event %}
+          <button name="action" value="update_event" class="btn btn-primary mb-0">Update Event</button>
+          {% else %}
+          <button name="action" value="save_continue" class="btn btn-primary mb-0">Submit Event</button>
+          {% endif %}
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+
+
+  <!-- [ sample-page ] end -->
+</div>
+<!-- [ Main Content ] end -->
+
+{% endblock content %}
+{% block modal %}
+{% endblock modal %}
+{% block extra_script %}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+{% endblock extra_script %}
+<!-- End Header -->

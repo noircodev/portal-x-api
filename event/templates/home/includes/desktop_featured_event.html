@@ -1,0 +1,55 @@
+ {% if featured_events %}
+ {% load static %}
+ <!-- featured container -->
+ <div class="mt-[37px] lg:mt-[72px] hidden md:block">
+   <!-- featured ctn -->
+   <div class="grid auto-cols-[minmax(200px,204px)] grid-flow-col overflow-x-auto w-full gap-5 featuredScroll md:auto-cols-[minmax(256px,256px)] lg:auto-cols-[minmax(350px,400px)] xl:auto-cols-[minmax(495.8px,495.8px)]">
+     {% for event in featured_events %}
+     <!-- main card ctn -->
+     <div>
+       <!-- featured date -->
+       <div class="hidden md:flex items-center gap-[6.14px] lg:gap-[11.87px]">
+         <div class="w-[10.39px] h-[10.39px] bg-(--primary-300) rounded-full lg:w-[20.1px] lg:h-[20.1px]"></div>
+         <p class="lg:text-[22.04px] font-medium font-jakarta lg:leading-[20px] md:text-[11.39px]">
+           {% if event.end_date %}
+           <span class="font-extrabold">{{event.start_date|date:'d'}}-{{event.end_date|date:'d'}}</span> {{event.end_date|date:'M'}}
+           {% else %}
+           <span class="font-extrabold">{{event.start_date|date:'d'}}</span> {{event.start_date|date:'M'}}
+           {% endif %}
+         </p>
+       </div>
+
+       <!-- featured card -->
+       <div class="flex flex-col p-[6px] pb-[21px] rounded-xl w-full gap-[15px] featured border-2 border-[#BEBEBE3B] md:p-[6.66px] md:pb-[22.12px] md:gap-[18.86px] md:mt-[6.75px] md:rounded-[13.32px] lg:p-[12.88px] lg:pb-[42.52px] lg:gap-[36.48px] lg:rounded-[25.76px] lg:border-[4.29px] lg:mt-[13.07px]">
+         <div class="rounded-[7px] overflow-hidden w-full h-21 md:h-[122px] md:rounded-[7.77px] lg:h-[170px] xl:h-[236.1px] lg:rounded-[15.02px]">
+           <img class="object-cover object-center w-full h-full rounded-[7px] md:rounded-[7.77px] lg:rounded-[15.02px]" src="{{ event.get_event_image }}" alt="{{ event.title|slugify }}-event image" />
+         </div>
+
+
+         <a href="{{ event.link }}" target="_blank">
+
+           <div class="flex items-center flex-col pl-[9px] pr-[14.49px] font-jakarta gap-[6px] md:pl-[9.99px] md:pr-[21.08px] md:gap-[6.66px] lg:pr-[40.78px] lg:pl-[19.32px] lg:gap-[12.88px]">
+             <div class="flex items-center justify-between w-full">
+               <p class="text-[14.3px] font-bold text-(--primary-300) line-clamp-1 md:text-[14.42px] lg:text-[27.9px]">
+                 {{ event.title }}
+               </p>
+               <img src="{% static "home/assets/img/icons/rightArrowIcon.svg" %}" alt="" class="md:w-[21.08px] md:h-[21.08px] lg:w-[40.78px] lg:h-[40.78px]" />
+             </div>
+             <div class="w-full font-medium text-xs md:text-[12.21px] md:leading-[16px] lg:leading-[31px] lg:text-[23.61px]">
+               {% if event.end_date %}
+               <p class="">{{ event.start_date|date:'jS' }} - {{ event.end_date|date:'jS' }} {{ event.end_date|date:'M' }}</p>
+               {% else %}
+               <p class="">{{ event.start_date|date:'jS' }} {{ event.start_date|date:'M' }}</p>
+               {% endif %}
+               <p class="hidden md:block">{{ event.city.get_city_name }}, {{ event.city.region.state_code }}</p>
+             </div>
+           </div>
+         </a>
+
+       </div>
+
+     </div>
+     {% endfor %}
+   </div>
+ </div>
+ {% endif %}

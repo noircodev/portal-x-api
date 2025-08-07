@@ -1,0 +1,33 @@
+{% extends "home/base/base.html" %}
+{% block title %}Upcoming Events{% endblock title %}
+{% load static %}
+{% block extra_head %}
+{% endblock extra_head %}
+{% block content %}
+{% include "home/base/overlay.html" %}
+<!-- main events ctn -->
+<section id="eventsCtn" class="mt-[23.86px] md:mt-[39px] lg:mt-[59.25px]">
+  <div class="mr-[19px] ml-6 border-t-[0.5px] border-(--border-col) lg:ml-[66px] lg:mr-[73px] md:border-t-0 lg:border-t-[0.5px]">
+    <!-- upcoming events ctn -->
+    <div class="font-jakarta lg:font-bold hidden md:flex lg:mt-[62px] md:mt-0 md:items-center md:justify-between">
+      <p class="lg:text-[32px] lg:leading-[31.81px] text-(--active-100) md:text-[16.63px] md:leading-[16.63px]">
+        Upcoming Events
+      </p>
+      <a href="{% url "event:submit_event" %}" class="lg:text-[20px] lg:leading-[15px] md:flex md:items-center md:justify-between lg:gap-[49px] lg:px-[29px] lg:py-[26px] lg:rounded-[15px] bg-(--primary-800) backdrop-blur-sm border-gradient md:rounded-[7.79px] md:px-[15.07px] md:gap-[25.46px] md:text-[11.5px] md:border-[1.3px] lg:border-[2.5px] md:border-[#BEBEBE3B] md:h-[33px] lg:h-[64px]">
+        <p class="">Submit your Events</p>
+        <img src="{% static "home/assets/img/icons/rightArrow.svg" %}" alt="" class="md:w-[14.03px] md:h-[14.03px] lg:w-[27px] lg:h-[27px]" />
+      </a>
+    </div>
+    {% include "home/includes/desktop_featured_event.html" %}
+
+    <div id="eventContainer" class="xs:grid sm:justify-start place-items-center xxl:grid-cols-[repeat(auto-fit,minmax(407px,407px))] xl:grid-cols-[repeat(auto-fit,minmax(350px,1fr))] lg:grid-cols-[repeat(auto-fit,minmax(250px,1fr))] lg:gap-6 xl:gap-10 lg:mt-[72px] md:mt-[37px] md:grid-cols-[repeat(auto-fit,minmax(212px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] xs:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] xs:gap-[20.78px] md:gap-[18px]">
+      {% for event in events %}
+      {% include "home/includes/event_card.html" with event=event %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% include "home/includes/pagination.html" with queryset=events %}
+{% endblock content %}
+{% block extra_script %}
+{% endblock extra_script %}

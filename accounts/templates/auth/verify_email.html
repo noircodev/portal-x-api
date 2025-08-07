@@ -1,0 +1,66 @@
+{% extends 'home/base/base.html' %}
+{% block title %} Email Verification{% endblock title %}
+{% load static %}
+{% block extra_head %}
+{% endblock extra_head %}
+{% block content %}
+<!-- Banner Start -->
+<section class="banner">
+  <div class="container ">
+    <div class="row gy-4 gy-sm-0 align-items-center">
+      <div class="col-12 col-sm-6">
+        <div class="banner__content">
+          <h1 class="banner__title display-4 wow fadeInLeft" data-wow-duration="0.8s">Email Verification</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb wow fadeInRight" data-wow-duration="0.8s">
+              <li class="breadcrumb-item"><a href="{% url "home:home" %}">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Email Verification</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6">
+        <div class="banner__thumb text-end">
+          <img src="{% static "home/assets/images/banner/email-verification.svg" %}" alt="image">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Banner End -->
+<!-- Loan Comparison start -->
+<section class="loan-comparison section">
+  <div class="container">
+    <div class="loan-comparison__table">
+      <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+          {% if valid_link %}
+          <div class="section-title text-center">
+            <h3>Email Verification Successful</h3>
+            <div class="alert alert-success my-4">
+              <p> Congratulations! Your email has been successfully verified. You can now enjoy full access to our website's features and content.</p>
+            </div>
+          </div>
+          {% else %}
+          <div class="section-title text-center">
+            <h3>Invalid Email Verification Link</h3>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-12 ">
+              <p class="alert alert-danger text-justify">
+                <strong class="px-0">
+                  Sorry, but the verification link you followed seems to be altered or invalid, this means it may have already been used or has expired <br>
+                  For security reasons, please request a fresh link.
+                </strong>
+              </p>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}
+{% block extra_script %}
+{% endblock extra_script %}

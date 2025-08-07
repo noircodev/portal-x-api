@@ -1,0 +1,17 @@
+{% if recent_searches %}
+{% load static %}
+<p class="font-jakarta font-semibold text-sm text-(--primary-300) md:hidden mb-[22px] md:m-0">
+  Recent Searches
+</p>
+{% for search in recent_searches %}
+<div class="flex items-center justify-between gap-[29px] md:gap-2 lg:gap-[29px] w-full mt-0">
+  <div class="flex items-center gap-[29px] md:gap-[6.8px] lg:gap-[29px] w-full">
+    <img src="{% static "home/assets/img/icons/upArrow.svg" %}" alt="search" class="md:w-[14.65px] md:h-[14.65px] lg:w-[42.9px] lg:h-[42.9px]" />
+    <p class="font-medium text-[14.5px] font-GeneralSans w-full md:text-[10.46px] lg:text-[17.88px] md:font-jakarta md:font-medium md:line-clamp-1">
+      {{search.search_keyword|title|truncatechars:50}}
+    </p>
+  </div>
+  <img src="{% static "home/assets/img/icons/upArrow.svg" %}" alt="" class="md:w-[14.65px] md:h-[14.65px] lg:w-[42.9px] lg:h-[42.9px]" />
+</div>
+{% endfor %}
+{% endif %}

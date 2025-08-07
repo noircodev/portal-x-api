@@ -1,0 +1,26 @@
+{% if has_notification %}
+{% load static %}
+<style>
+  .new-event::before {
+    content: "";
+    height: 8px;
+    width: 8px;
+    background: url({% static "account/assets/imgs/icons/icon-notify.svg" %}) no-repeat center;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+
+</style>
+{% endif %}
+<div class="dropdown d-inline-block"><a class="btn btn-notify new-event" id="dropdownNotify" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static"></a>
+  <ul class="dropdown-menu dropdown-menu-light dropdown-menu-end" aria-labelledby="dropdownNotify">
+    {% if has_notification %}
+    {% for notification in notifications %}
+    <li><a class="dropdown-item active" href="{% url "account_notifications" %}">{{notification.preview_title|truncatechars:"30"}}</a></li>
+    {% endfor %}
+    {% else %}
+    <li><a class="dropdown-item" href="#">No new notification, check again later</a></li>
+    {% endif %}
+  </ul>
+</div>

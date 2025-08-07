@@ -1,0 +1,247 @@
+{% extends 'home/base/base.html' %}
+{% block title %}Signup for a Free Account{% endblock title %}
+{% load static %}
+{% load tunstile_tags %}
+{% block extra_head %}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "{{ request.scheme }}://{{ request.get_host }}{% url 'account_signup' %}",
+    "url": "{{ request.scheme }}://{{ request.get_host }}{% url 'account_signup' %}",
+    "name": "Signup - VPS Advisor",
+    "description": "Create an account on VPS Advisor to write reviews, compare VPS providers, and explore the best hosting services.",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "{{ request.scheme }}://{{ request.get_host }}"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Signup",
+          "item": "{{ request.scheme }}://{{ request.get_host }}{% url 'account_signup' %}"
+        }
+      ]
+    }
+  }
+
+</script>
+
+{% endblock extra_head %}
+{% block content %}
+
+<!-- Banner Start -->
+<section class="banner">
+  <div class="container ">
+    <div class="row gy-4 gy-sm-0 align-items-center">
+      <div class="col-12 col-sm-6">
+        <div class="banner__content">
+          <h1 class="banner__title display-4 wow fadeInLeft" data-wow-duration="0.8s">Sign Up</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb wow fadeInRight" data-wow-duration="0.8s">
+              <li class="breadcrumb-item"><a href="{% url "home:home" %}">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Sign Up</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6">
+        <div class="banner__thumb text-end">
+          <img src="{% static "home/assets/images/signin_banner.png" %}" alt="image">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Banner End -->
+
+<!-- sign-up start -->
+<section class="sign-up section">
+  <div class="container">
+    <div class="row gy-5 gy-xl-0 justify-content-center justify-content-lg-between align-items-center">
+      <div class="col-12 col-lg-7 col-xxl-6">
+
+
+
+        <div class="sign-up__form me-lg-4 me-xxl-0 wow fadeInUp" data-wow-duration="0.8s">
+
+          <h3 class="sign-up__title wow fadeInUp text-center mx-2" data-wow-duration="0.8s">Plesae Select Account Type</h3>
+
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="reviewer-tab" data-bs-toggle="tab" data-bs-target="#reviewer" type="button" role="tab" aria-controls="reviewer" aria-selected="true">Reviewer</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="provider-tab" data-bs-toggle="tab" data-bs-target="#provider" type="button" role="tab" aria-controls="provider" aria-selected="false">Provider</button>
+            </li>
+          </ul>
+
+
+
+          <div class="tab-content" id="myTabContent">
+
+            <div class="tab-pane fade mx-3 show active" id="reviewer" role="tabpanel" aria-labelledby="reviewer-tab">
+              <form method="POST" action=".">
+                <div class="">
+                  {% csrf_token %}
+                  <input type="hidden" name="account_type" value="reviewer">
+                  <h4 class="sign-up__title wow fadeInUp text-center" data-wow-duration="0.8s">Signup as a Reviewer</h4>
+                  <p class="sign-up__sub-title mb_40 text-center">Join as a reviewer and start sharing your experiences to guide others toward the best solutions</p>
+
+                  <div class="mb-5">
+
+                    {% if form.non_field_errors %}
+                    <div class="row justify-content-center">
+                      <div class="col-10">
+                        {% for error in form.non_field_errors %}
+                        <p class="alert alert-danger text-center mb-2">{{ error }}</p>
+                        {% endfor %}
+                      </div>
+                    </div>
+                    {% endif %}
+
+                    {% for field in form %}
+                    {% if field.errors %}
+                    <div class="row justify-content-center">
+                      <div class="col-10">
+                        <div class="alert alert-danger">
+                          {% for error in field.errors %}
+                          <p class="alert alert-danger text-center mb-2">{{ error }}</p>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                  </div>
+
+
+
+                  <div class="sign-up__form-part">
+                    <div class="input-single">
+                      <label class="label" for="username">Username</label>
+                      <input type="text" class="form-control" name="username" id="id_reviewer_username" placeholder="Enter Your Username..." required>
+                    </div>
+                    <div class="input-group">
+                      <div class="input-single">
+                        <label class="label" for="first_name">First Name</label>
+                        <input type="text" class="form-control" name="first_name" id="id_reviewer_first_name" placeholder="Enter First Name..." required>
+                      </div>
+                      <div class="input-single">
+                        <label class="label" for="last_name">Last Name</label>
+                        <input type="text" class="form-control" name="last_name" id="id_reviewer_last_name" placeholder="Enter Last Name..." required>
+                      </div>
+                    </div>
+                    <div class="input-single">
+                      <label class="label" for="email"> Email Address</label>
+                      <input type="email" class="form-control" name="email" id="id_reviewer_email" placeholder="Enter Your Email..." required>
+                    </div>
+                    <div class="input-single">
+                      <label class="label" for="password">Enter Your Password</label>
+                      <div class="input-pass">
+                        <input type="password" class="form-control" name="password" id="id_reviewer_password" placeholder="Enter Your Password..." required>
+                        <span class="password-eye-icon"> </span>
+                      </div>
+                    </div>
+                    <div class="input-single">
+                      {% get_turnstile_key %}
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn_theme mt_32" name="submit" id="id_reviewer_submit">Sign Up<i class="bi bi-arrow-up-right"></i><span></span></button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div class="tab-pane fade mx-3" id="provider" role="tabpanel" aria-labelledby="provider-tab">
+              <form method="POST" action=".">
+                <div class="">
+                  {% csrf_token %}
+                  <input type="hidden" name="account_type" value="provider">
+                  <h4 class="sign-up__title wow fadeInUp text-center" data-wow-duration="0.8s">Signup as a Provider</h4>
+                  <p class="sign-up__sub-title mb_40">Expand your business and build credibility by signing up as a provider. Let your services shine in front of the right audience!</p>
+
+
+                  <div class="sign-up__form-part">
+                    <div class="input-single">
+                      <label class="label" for="website_url">Website URL</label>
+                      <input type="text" class="form-control" name="website_url" id="website_url" placeholder="Enter Your Website URL..." required>
+                    </div>
+                    <div class="input-single">
+                      <label class="label" for="username">Username </label>
+                      <input type="text" class="form-control" name="username" id="provider_username" placeholder="Enter Your Username..." required>
+                    </div>
+
+                    <div class="input-group">
+                      <div class="input-single">
+                        <label class="label" for="first_name">First Name</label>
+                        <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First Name..." required>
+                      </div>
+                      <div class="input-single">
+                        <label class="label" for="last_name">Last Name</label>
+                        <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Last Name..." required>
+                      </div>
+                    </div>
+                    <div class="input-single">
+                      <label class="label" for="email">Email Address</label>
+                      <input type="email" class="form-control" name="email" id="email" placeholder="Enter Your Email..." required>
+                    </div>
+                    <div class="input-single">
+                      <label class="label" for="password">Password</label>
+                      <div class="input-pass">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Enter Your Password..." required>
+                        <span class="password-eye-icon"> </span>
+                      </div>
+                    </div>
+                    <div class="input-single">
+                      {% get_turnstile_key %}
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn_theme mt_32" name="submit" id="submit">Sign Up<i class="bi bi-arrow-up-right"></i><span></span></button>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+
+          <div class="custom-divider">
+            <span>OR</span>
+          </div>
+
+
+
+
+
+          <form id="social-auth-form" action="{% url "statrt_social_auth" %}" method="post">
+            {% csrf_token %}
+            <div class="social-signup social-signup-buttons">
+              <input id="auth-method-input" type="hidden" name="auth_method" value="">
+              <button type="button" data-auth-method="google" class="btn btn-outline-secondary"><img src="{% static "home/assets/images/icons/google-login.svg" %}" class="social-icon" /> Signup with Google</button>
+              <button type="button" data-auth-method="github" class="btn btn-outline-secondary"><img src="{% static "home/assets/images/icons/github-login.svg" %}" class="social-icon" /> Signup with Github</button>
+            </div>
+          </form>
+
+          <p class="have_account mt_24 mt-5 text-center">Do you have an account? <a href="{% url "account_login" %}" class="signin">Signin</a></p>
+
+        </div>
+
+      </div>
+      <div class="col-12 col-sm-7 col-lg-5 col-xxl-5">
+        <div class="sign-up__thumb previewShapeY unset-xxl wow fadeInDown" data-wow-duration="0.8s">
+          <img src="{% static "home/assets/images/sign_up.png" %}" alt="images">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- sign-up end -->
+{% endblock content %}
+{% block extra_script %}
+{% endblock extra_script %}

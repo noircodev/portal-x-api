@@ -1,0 +1,173 @@
+[project]
+name = "Portal_X"
+version = "0.1.0"
+description = "Portal X Event Project - Proprietary Event Aggregator System"
+authors = [{ name = "NoirLabs", email = "dev@noirlabs.org" }]
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Proprietary" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 5.2",
+    "Intended Audience :: End Users/Desktop",
+    "License :: Other/Proprietary License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Topic :: Office/Business :: Scheduling",
+    "Private :: Do Not Upload",
+]
+dependencies = [
+    "Django>=5.2,<6.0",
+    "psycopg2-binary>=2.9.10",
+    "djangorestframework>=3.15.2",
+    "django-cleanup>=9.0.0",
+    "pillow>=11.1.0",
+    "requests>=2.32.3",
+    "python-decouple>=3.8",
+    "beautifulsoup4>=4.13.3",
+    "pandas>=2.2.3",
+    "numpy>=2.2.3",
+    "meilisearch>=0.34.1",
+    "geoip2>=5.1.0",
+    "pydantic>=2.11.4",
+    "camel-converter>=4.0.1",
+    "tqdm>=4.67.1",
+    "aiohttp>=3.12.2",
+    "toml>=0.10.2",
+    "py-cpuinfo>=9.0.0",
+    "psutil>=7.0.0",
+    "django-cors-headers>=4.7",
+]
+
+[project.optional-dependencies]
+local = ["django-debug-toolbar", "ipython>=8.32.0", "autopep8>=2.3.2"]
+staging = ["gunicorn", "sentry-sdk[django]"]
+production = ["gunicorn", "sentry-sdk[django]"]
+test = ["pytest", "pytest-django", "coverage"]
+dev = [
+    "django-debug-toolbar",
+    "ipython>=8.32.0",
+    "autopep8>=2.3.2",
+    "pytest",
+    "pytest-django",
+    "coverage",
+]
+
+[project.urls]
+Homepage = "https://noirlabs.org/"
+Documentation = "https://noirlabs.org/projects/portal-x"
+Organization = "https://noirlabs.org/"
+Contact = "https://noirlabs.org/contact"
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+#Exclude non-package files from the distribution
+include-package-data = true
+
+[tool.setuptools.packages.find]
+# Look for packages in the current directory
+where = ["."]
+# Include all packages found
+include = ["*"]
+# Exclude directories that aren't Python packages or shouldn't be installed
+exclude = [
+    "tests*",
+    "docs*",
+    "build*",
+    "dist*",
+    "*.egg-info*",
+    "venv*",
+    ".venv*",
+    "__pycache__*",
+    "*.pyc",
+    "node_modules*",
+    "static*",       # Django static files shouldn't be treated as packages
+    "media*",        # Django media files shouldn't be treated as packages
+    "logs*",         # Log files shouldn't be treated as packages
+    "env_static*",   # Environment static files
+]
+
+[tool.setuptools.package-data]
+# Include non-Python files in packages
+"*" = [
+    "*.txt",
+    "*.md",
+    "*.rst",
+    "*.json",
+    "*.yaml",
+    "*.yml",
+    "*.html",
+    "*.css",
+    "*.js",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.gif",
+    "*.svg",
+    "*.ico",
+    "templates/**/*",
+    "static/**/*",
+]
+
+[tool.django]
+# Django-specific configuration
+settings_module = "core.settings"
+
+[tool.pytest.ini_options]
+# Test configuration
+DJANGO_SETTINGS_MODULE = "core.settings"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--tb=short --strict-markers"
+testpaths = ["tests"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+[tool.coverage.run]
+source = ["."]
+omit = [
+    "*/migrations/*",
+    "*/venv/*",
+    "*/.venv/*",
+    "*/env/*",
+    "manage.py",
+    "*/settings/*",
+    "*/tests/*",
+    "*/test_*.py",
+    "*/__pycache__/*",
+    "*/static/*",
+    "*/media/*",
+    "*/logs/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+[tool.autopep8]
+max_line_length = 88
+ignore = ["E501", "W503"]

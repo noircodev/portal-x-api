@@ -1,0 +1,17 @@
+Django
+django-cleanup
+requests
+six
+python-decouple
+pytz
+tqdm
+djangorestframework
+pandas
+pillow
+beautifulsoup4
+psycopg2-binary
+meilisearch
+geoip2
+psutil
+py-cpuinfo
+toml

@@ -1,0 +1,94 @@
+  {% load static %}
+  {% load misc_tags %}
+  <section class="md:flex md:flex-col-reverse">
+    <!-- search ctn -->
+    <div class="mt-[33px] md:mt-[28.74px] lg:mt-[49px]">
+      <div class="md:flex md:flex-col md:items-center md:justify-center md:relative">
+
+        <form action="{% url 'event:search' %}" method="GET" id="search-form">
+          <div class="w-full px-6 md:flex md:items-center md:justify-center md:p-0">
+            <div class="flex h-12 items-center justify-between rounded-[50px] bg-white px-3.5 md:w-[378.38px] lg:h-[86.74px] md:h-[50.73px] lg:pr-[29px] lg:pl-[25px] lg:w-[647px]">
+              <div id="searchIcon" class="h-[17px] w-[17px] lg:w-[30.72px] lg:h-[30.72px] md:w-[17.97px] md:h-[17.97px]">
+                <img src="{% static "home/assets/img/icons/search.svg" %}" alt="search" class="h-[17px] w-[17px] lg:w-[30.72px] lg:h-[30.72px] md:w-[17.97px] md:h-[17.97px]" />
+              </div>
+              <div id="backIcon" class="h-[17px] w-[17px] lg:w-[30.72px] lg:h-[30.72px] hidden cursor-pointer md:w-[17.97px] md:h-[17.97px]">
+                <img src="{% static "home/assets/img/icons/back.svg" %}" alt="back" class="h-[17px] w-[17px] lg:w-[30.72px] lg:h-[30.72px] cursor-pointer md:w-[17.97px] md:h-[17.97px]" />
+              </div>
+              <input type="text" name="q" value="{{form.q.value|default_if_none:''}}" autocomplete="off" id="searchInput" class="typeahead font-jakarta mr-[28px] ml-[13px] w-full justify-center border-none text-[12px] font-medium text-black outline-none placeholder:text-[11px] placeholder:leading-[16.5px] placeholder:text-(--primary-200) lg:placeholder:text-[21px] lg:text-[21px] lg:text-(--primary-200) lg:mr-[25px] lg:ml-[23.49px] placeholder:text-ellipsis md:text-[12.28px] md:placeholder:leading-[18px] md:ml-[13.74px] md:mr-[14.95px]" placeholder="Search events near you—by vibe, city, or name..." />
+              <img id="clearBtn" src="{% static "home/assets/img/icons/close.svg" %}" alt="" class="h-[18px] w-[18px] hidden cursor-pointer lg:w-[30.72px] lg:h-[30.72px] md:w-[19.03px] md:h-[19.03px]" />
+            </div>
+          </div>
+        </form>
+
+
+        <!-- search suggestion container -->
+        <div id="searchCtn" class="flex-1 w-full md:w-[378.38px] lg:w-[647px] px-6 bg-(--background-color) md:bg-(--primary-800) h-[calc(100dvh-84px)] opacity-0 translate-y-3 transition-all duration-300 ease-in-out md:items-center md:justify-center md:opacity-100 md:h-auto md:p-0 md:relative md:z-40 hidden">
+          <div class="w-full md:absolute md:top-0 z-40 md:bg-(--primary-800) md:overflow-hidden lg:px-[41px] md:py-[26.34px] md:px-6 lg:py-[45px] md:flex md:rounded-[16.97px] lg:rounded-[29px] md:searchShadow md:mt-2 md:w-[378.66px] lg:w-[647px] md:max-h-[374.4px] lg:max-h-[640px]">
+            <div class="mt-[33px] md:overflow-hidden overflow-y-auto md:overflow-y-auto md:w-full md:m-0 hideScroll">
+              {% comment %} {% get_recent_searches %} {% endcomment %}
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    {% if events %}
+
+
+
+
+
+
+
+
+
+
+    <div id="heroSection">
+      {% include "home/includes/mobile_featured_event.html" %}
+
+
+      <!-- hero section -->
+      <div class="mt-[33px] md:mt-[38px] flex flex-col gap-[11px] md:gap-[10.53px] lg:gap-[18px] px-6 md:items-center lg:mt-[54px] md:text-center">
+        <!-- mobile text -->
+        <div class="md:hidden flex gap-[20px] font-jakarta items-end justify-between">
+          <div class="flex flex-col gap-2">
+            <p class="text-[15px] font-bold text-(--primary-300)">
+              Find your people. Come outside!
+            </p>
+            <p class="text-[12.5px] leading-[17px]">
+              This event aggregator helps you find people and events nearby.
+            </p>
+          </div>
+
+          <a href="" class="submitEvents flex items-center text-[10px] font-semibold justify-center border-2 h-[52px] pl-[13px] border-[#BEBEBE3B] rounded-xl pr-[13px] leading-[15px] max-w-[90px] min-w-[90px] sm:max-w-[200px]">
+            <span>Submit your Events
+              <img src="{% static "home/assets/img/icons/blueArrow.svg" %}" alt="" class="inline-flex ml-3.5" />
+            </span>
+          </a>
+        </div>
+
+        <!-- desktop text -->
+        <p class="md:text-[36.26px] md:leading-10 tracking-[-1.08px] lg:leading-[69px] font-bold hidden md:block lg:text-[62px] font-lufga lg:tracking-[-1.86px]">
+          Find your
+          <span class="text-(--primary-700) italic">people.<br /></span>
+          Come outside. Live your
+          <span class="text-(--primary-700) italic">dreams!</span>
+        </p>
+        <p class="hidden md:block text-[13.5px] leading-[17px] font-jakarta lg:text-[23px] lg:leading-[28px]">
+          This event aggregator has been curated to match your vibe
+        </p>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    {% endif %}
+  </section>

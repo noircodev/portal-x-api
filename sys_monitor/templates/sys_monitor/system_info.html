@@ -1,0 +1,206 @@
+{% extends "account/base/base.html" %}
+{% load static %}
+{% load humanize %}
+{% load app_version %}
+{% block title %} Platform Information {% endblock title %}
+
+
+{% block extra_head %}
+
+{% endblock extra_head %}
+
+{% block content %}
+
+<!-- [ Main Content ] start -->
+<div class="row">
+
+
+  <div class="col-lg-5 col-md-12">
+    <div class="card border">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-5">
+            <img src="{{platform_image|default_if_none:""}}" alt="images" class="img-fluid" style="max-width: 100px;;" />
+            <ul class="d-flex flex-column gap-2 mt-3 list-group" style="list-style: none;">
+              <li class="p-1 border"><strong>Processor:</strong> {{processor}}</li>
+              <li class="p-1 border"><strong>Release:</strong> {{platform_release}}</li>
+              <li class="p-1 border"><strong>OS Version:</strong> {{platform_info.PRETTY_NAME}}</li>
+              <li class="p-1 border"><strong>Machine:</strong> {{machine}}</li>
+              <li class="p-1 border"><strong>Architecture</strong> {{architecture}} </li>
+              <li class="p-1 border"><strong>Uptime</strong> {{uptime}} </li>
+              <li class="p-1 border"><strong>Swap Memory</strong> {{swap_total}} </li>
+            </ul>
+          </div>
+
+
+          <div class="col-sm-7">
+            <div class="course-price">
+              <div class="form-check p-0">
+                <label class="form-check-label d-block">
+                  <span class="d-flex align-items-center">
+                    <span class="flex-grow-1 me-3">
+                      <span class="h5 d-block">Platform</span>
+                    </span>
+                    <span class="flex-shrink-0">
+                      <span class="h6 mb-0">{{platform}}</span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="form-check p-0">
+                <label class="form-check-label d-block">
+                  <span class="d-flex align-items-center">
+                    <span class="flex-grow-1 me-3">
+                      <span class="h5 d-block">OS</span>
+                    </span>
+                    <span class="flex-shrink-0">
+                      <span class="h6 mb-0">{{platform_info.NAME}}</span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="form-check p-0">
+                <label class="form-check-label d-block">
+                  <span class="d-flex align-items-center">
+                    <span class="flex-grow-1 me-3">
+                      <span class="h5 d-block">Version</span>
+                    </span>
+                    <span class="flex-shrink-0">
+                      <span class="h6 mb-0">{{platform_info.VERSION}}</span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="form-check p-0">
+                <label class="form-check-label d-block">
+                  <span class="d-flex align-items-center">
+                    <span class="flex-grow-1 me-3">
+                      <span class="h5 d-block">RAM</span>
+                    </span>
+                    <span class="flex-shrink-0">
+                      <span class="h6 mb-0">{{total_ram}}</span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+              <div class="form-check p-0">
+                <label class="form-check-label d-block">
+                  <span class="d-flex align-items-center">
+                    <span class="flex-grow-1 me-3">
+                      <span class="h5 d-block">CPU Cores</span>
+                    </span>
+                    <span class="flex-shrink-0">
+                      <span class="h6 mb-0">{{cpu_cores}}</span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+
+              <div class="form-check p-0">
+                <label class="form-check-label d-block">
+                  <span class="d-flex align-items-center">
+                    <span class="flex-grow-1 me-3">
+                      <span class="h5 d-block">CPU Thread{{cpu_threads|pluralize}} </span>
+                    </span>
+                    <span class="flex-shrink-0">
+                      <span class="h6 mb-0">{{cpu_threads}}</span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+
+              <div class="form-check p-0">
+                <label class="form-check-label d-block">
+                  <span class="d-flex align-items-center">
+                    <span class="flex-grow-1 me-3">
+                      <span class="h5 d-block">Min Freq.</span>
+                    </span>
+                    <span class="flex-shrink-0">
+                      <span class="h6 mb-0">{{cpu_freq.min}}</span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+
+              <div class="form-check p-0">
+                <label class="form-check-label d-block">
+                  <span class="d-flex align-items-center">
+                    <span class="flex-grow-1 me-3">
+                      <span class="h5 d-block">Max Freq.</span>
+                    </span>
+                    <span class="flex-shrink-0">
+                      <span class="h6 mb-0">{{cpu_freq.max}}</span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <h5 class="mb-0">System Memory</h5>
+        </div>
+        <canvas id="ramChart"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <h5 class="mb-0">Swap Memory</h5>
+        </div>
+        <canvas id="swapChart"></canvas>
+      </div>
+    </div>
+
+
+
+
+
+  </div>
+
+  <div class="col-lg-7 col-md-12">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex align-items-start justify-content-between">
+              <h5 class="mb-0">CPU Usage</h5>
+            </div>
+            <canvas id="cpuChart"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+
+</div>
+<!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+{% block modal %}
+
+{% endblock modal %}
+
+{% block extra_script %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+
+
+{% endblock extra_script %}

@@ -1,0 +1,23 @@
+{% extends "home/error_page/base.html" %}
+{% load static %}
+{% block content %}
+<main class="px-[30px] flex flex-col items-center justify-center h-[calc(100vh-51px)] lg:h-auto lg:w-max lg:m-auto lg:mt-[278px]">
+  <div class="flex flex-col items-center justify-center gap-[33px] lg:gap-6">
+    <div>
+      <img src="{% static "home/assets/img/icons/error404.png" %}" alt="" />
+    </div>
+    <div class="font-jakarta text-center flex flex-col gap-2.5 lg:gap-[13px] items-center justify-center">
+      <p class="font-bold text-lg text-(--primary-300) lg:text-[40px]">
+        Oops! This page doesn't exist.
+      </p>
+      <p class="text-[13.5px] leading-[17px] lg:text-base lg:font-inter">
+        The page you’re looking for doesn’t exist or has moved.
+      </p>
+    </div>
+  </div>
+
+  <a href="{% url "event:home" %}" class="w-full font-jakarta font-bold px-10 py-2.5 rounded-lg mt-[217px] bg-(--blue-100) text-(--primary-900) text-center lg:mt-12">
+    Back to Homepage
+  </a>
+</main>
+{% endblock content %}

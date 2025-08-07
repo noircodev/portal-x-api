@@ -1,0 +1,59 @@
+{% load static %}
+
+
+{% if queryset %}
+{% for event in queryset %}
+
+
+
+<div id="deleteEventModal{{event.id}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <form action="{% url "account_add_event" %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="instance_id" value="{{event.id}}">
+        <input type="hidden" name="title" value="{{event.title}}">
+        <input type="hidden" name="start_date" value="{{event.start_date}}">
+        <input type="hidden" name="end_date" value="{{event.end_date}}">
+        <input type="hidden" name="description" value="{{event.description}}">
+        <input type="hidden" name="venue" value="{{event.venue}}">
+        <input type="hidden" name="link" value="{{event.link}}">
+        <input type="hidden" name="city" value="{{event.city.id}}">
+        <input type="hidden" name="featured" value="{{event.featured}}">
+        <input type="hidden" name="valid" value="{{event.valid}}">
+
+        <div class="modal-header">
+          <div class="flex-grow-1">
+            <h5 class="modal-title text-center">Delete Event</h5>
+          </div>
+          <ul class="list-inline me-auto mb-0">
+            <li class="list-inline-item align-bottom">
+              <a href="#" class="avtar avtar-s btn-link-danger" data-bs-dismiss="modal">
+                <i class="ti ti-circle-x f-18"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3 text-center">
+            <p class="alert alert-warning"><strong>{{event.title}}</strong> will be permanently deleted</p>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <div class="flex-grow-1 text-center">
+            <button class="btn btn-danger" name="action" value="delete_event">Delete</button>
+          </div>
+        </div>
+
+      </form>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+{% endfor %}
+{% endif %}

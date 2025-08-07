@@ -1,0 +1,52 @@
+{% load static %}
+<div class="mobile-header-active mobile-header-wrapper-style perfect-scrollbar">
+  <div class="mobile-header-wrapper-inner">
+    <div class="mobile-header-content-area">
+      <div class="perfect-scroll">
+
+        <div class="mobile-menu-wrap mobile-header-border">
+          <!-- mobile menu start-->
+          <nav>
+            <ul class="main-menu">
+              {% with request.resolver_match.url_name as url_name %}
+              <li> <a class="dashboard2 {% if url_name == 'account_home' %}active{% endif %} " href="{% url "account_home" %}"><img src="{% static 'account/assets/imgs/icons/dashboard.svg' %}"><span class="name">Dashboard</span></a>
+              </li>
+              <li> <a class="dashboard2 {% if url_name == 'account_review' %}active{% endif %} " href="{% url "account_review" %}"><img src="{% static 'account/assets/imgs/icons/comment.svg' %}"><span class="name">My Reviews</span></a>
+              </li>
+              <li> <a class="dashboard2 {% if url_name == 'account_notifications' %}active{% endif %} " href="{% url "account_notifications" %}"><img src="{% static 'account/assets/imgs/icons/notify.svg' %}"><span class="name">Notifications</span></a>
+              </li>
+              <li> <a class="dashboard2 {% if url_name == 'account_my_organization' %}active{% endif %} " href="{% url "account_my_organization" %}"><img src="{% static 'account/assets/imgs/icons/jobs.svg' %}"><span class="name">My Organization</span></a>
+              </li>
+              <li> <a class="dashboard2 {% if url_name == 'account_watchlist' %}active{% endif %} " href="{% url "account_watchlist" %}"><img src="{% static 'account/assets/imgs/icons/bookmark.svg' %}"><span class="name">Watchlist</span></a>
+              </li>
+              <li> <a class="dashboard2 {% if url_name == 'account_add_organization' %}active{% endif %} " href="{% url "account_add_organization" %}"><img src="{% static 'account/assets/imgs/icons/plus.svg' %}"><span class="name">Add Provider</span></a>
+              </li>
+              <li> <a class="dashboard2 {% if url_name == 'account_profile_settings' %}active{% endif %} " href="{% url "account_profile_settings" %}"><img src="{% static 'account/assets/imgs/icons/settings.svg' %}"><span class="name">Profiles Setting</span></a>
+              </li>
+              {% endwith %}
+              <div class="border-bottom mb-20 mt-20"></div>
+              <li>
+                <form action="{% url "account_logout" %}" method="post" class="mt-5">
+                  {% csrf_token %}
+                  <a class="dashboard2" href="javascript:void();" onclick="this.closest('form').submit(); return false;">
+                    <img src="{% static 'account/assets/imgs/icons/logout.svg' %}">
+                    <span class="name">Logout</span>
+                  </a>
+                </form>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="mobile-account">
+
+          <div class="mb-15 mt-15">
+            <a class="btn btn-default icon-edit hover-up" href="{% url "account_add_organization" %}">Get Listed</a>
+          </div>
+        </div>
+        <div class="site-copyright">
+          <p class="font-sm color-text-paragraph-2">© {% now "Y" %} - <a class="color-brand-2" href="{% url "home:home" %}" target="_blank">VPS Advisor </a> <span> Developed by </span><a class="color-brand-2" href="https://reubensunday.com/" target="_blank"> Reuben Sunday</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

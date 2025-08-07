@@ -1,0 +1,41 @@
+{% extends "account/base/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %} Protected Content {% endblock title %}
+{% block extra_head %}
+{% endblock extra_head %}
+{% block content %}
+<div class="row">
+  <div class="col-lg-12">
+    <div class="section-box">
+      <div class="container">
+        <div class="panel-white mb-30">
+          <div class="box-padding">
+            <div class="login-register">
+              <div class="row login-register-cover pb-250">
+                <div class="col-lg-4 col-md-6 col-sm-12 mx-auto">
+                  <div class="form-login-cover">
+                    <div class="text-center"><img src="{% static "account/assets/imgs/page/login-register/img-6.svg" %}" alt="Protected Content">
+                      <h2 class="mt-10 mb-5 text-brand-1">Restricted Access</h2>
+                      <p class="font-sm text-muted mb-30 alert alert-info">
+                        This content is protected and can only be accessed by authorized users. If you think you should have access, please check your account permissions or contact the administrator for assistance </p>
+                    </div>
+                    <div class="form-group">
+                      <a href="{% url "account_home" %}" class="btn btn-brand-1 hover-up w-100">Go Back Home</a>
+                    </div>
+                    <div class="text-muted text-center">Need help?<a href="{% url "home:contact" %}" target="_blank"> Contact Us</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+{% block modal %}
+{% endblock modal %}
+{% block extra_script %}
+{% endblock extra_script %}

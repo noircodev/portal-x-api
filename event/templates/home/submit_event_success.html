@@ -1,0 +1,30 @@
+{% extends "home/base/base.html" %}
+{% load static %}
+{% block title %}Congratulations {% endblock title %}
+{% block extra_head %}
+{% endblock extra_head %}
+{% block content %}
+<div class="fixed top-0 left-0 z-999 bg-(--overlay-bg) flex items-center justify-center w-full h-full text-white">
+  <div class="p-5 bg-white rounded-lg w-[329px] md:w-[400px] lg:w-[600px] flex flex-col items-center justify-center">
+    <div class="flex flex-col gap-6">
+      <div class="flex items-center justify-center">
+        <img src="{% static "home/assets/img/icons/hurray.png" %}" alt="" />
+      </div>
+
+      <div class="font-jakarta flex flex-col items-center justify-center gap-2">
+        <p class="text-[15px] font-bold text-(--text-100)">
+          Thanks for Submitting Event
+        </p>
+        <p class="text-xs text-center font-medium text-(--gray-300)">
+          We appreciate your submission! Get ready for an unforgettable
+          event experience.
+        </p>
+      </div>
+    </div>
+
+    <a href="{% url "event:home" %}" class="py-4 pl-7 pr-6 rounded-lg bg-(--primary-800) font-jakarta text-sm font-semibold tracking-[0.01px] w-full mt-6 text-center cursor-pointer">
+      Back to Home
+    </a>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,43 @@
+{% load static %}
+
+{% if queryset.has_other_pages %}
+<div id="pagination" class="flex items-center justify-center mt-[30px] py-[17px] lg:mt-[127px] md:mt-[65px]">
+  <div class="bg-(--primary-500) flex rounded-[9px] border-[2.08px] border-[#495870] pagination-ctn">
+
+    {% if queryset.has_previous %}
+    <a href="?page={{ queryset.previous_page_number }}{% if form.q.value %}&amp;q={{ form.q.value|default_if_none:""|urlencode }}&amp;{% endif %}" class="w-[35px] h-[35px] flex items-center justify-center border-r border-[#495870] cursor-pointer sm:w-[38px] sm:h-[38px] lg:w-[50px] lg:h-[50px] md:w-[43px] md:h-[43px]">
+      <img src="{% static "home/assets/img/icons/previous.svg" %}" alt="Previous" class="lg:w-[32px] lg:h-[32px] md:w-[16.44px] md:h-[16.44px]">
+    </a>
+    {% else %}
+    <span class="w-[35px] h-[35px] flex items-center justify-center border-r border-[#495870] cursor-not-allowed opacity-60 sm:w-[38px] sm:h-[38px] lg:w-[50px] lg:h-[50px] md:w-[43px] md:h-[43px]">
+      <img src="{% static "home/assets/img/icons/previous.svg" %}" alt="Previous" class="lg:w-[32px] lg:h-[32px] md:w-[16.44px] md:h-[16.44px]">
+    </span>
+    {% endif %}
+
+    <div id="pageNumbers" class="flex">
+      {% for n in queryset.paginator.page_range %}
+      {% if n == queryset.number %}
+      <span class="flex items-center justify-center w-[35px] h-[35px] sm:w-[38px] sm:h-[38px] md:w-[43px] md:h-[43px] lg:w-[50px] lg:h-[50px] font-jakarta text-[12px] sm:text-[14px] lg:text-[16px] xl:text-[18px] font-semibold border-r border-[#495870] bg-(--primary-600) text-black">{{ n }}</span>
+      {% elif n >= queryset.number|add:'-2' and n <= queryset.number|add:'2' %}
+      <a href="?page={{ n }}{% if form.q.value %}&amp;q={{ form.q.value|default_if_none:""|urlencode }}&amp;{% endif %}" class="flex items-center justify-center w-[35px] h-[35px] sm:w-[38px] sm:h-[38px] md:w-[43px] md:h-[43px] lg:w-[50px] lg:h-[50px] font-jakarta text-[12px] sm:text-[14px] lg:text-[16px] xl:text-[18px] font-semibold border-r border-[#495870] hover:bg-(--primary-600) hover:text-black cursor-pointer">{{ n }}</a>
+      {% elif n == 1 or n == queryset.paginator.num_pages %}
+      <a href="?page={{ n }}{% if form.q.value %}&amp;q={{ form.q.value|default_if_none:""|urlencode }}&amp;{% endif %}" class="flex items-center justify-center w-[35px] h-[35px] sm:w-[38px] sm:h-[38px] md:w-[43px] md:h-[43px] lg:w-[50px] lg:h-[50px] font-jakarta text-[12px] sm:text-[14px] lg:text-[16px] xl:text-[18px] font-semibold border-r border-[#495870] hover:bg-(--primary-600) hover:text-black cursor-pointer">{{ n }}</a>
+      {% elif n == queryset.number|add:'-3' or n == queryset.number|add:'3' %}
+      <span class="flex items-center justify-center w-[35px] h-[35px] sm:w-[38px] sm:h-[38px] md:w-[43px] md:h-[43px] lg:w-[50px] lg:h-[50px] font-jakarta text-[12px] sm:text-[14px] lg:text-[16px] xl:text-[18px] font-semibold border-r border-[#495870]">...</span>
+      {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if queryset.has_next %}
+    <a href="?page={{ queryset.next_page_number }}{% if form.q.value %}&amp;q={{ form.q.value|default_if_none:""|urlencode }}&amp;{% endif %}" class="w-[35px] h-[35px] flex items-center justify-center cursor-pointer sm:w-[38px] sm:h-[38px] lg:w-[50px] lg:h-[50px] md:w-[43px] md:h-[43px]">
+      <img src="{% static "home/assets/img/icons/next.svg" %}" alt="Next" class="lg:w-[32px] lg:h-[32px] md:w-[16.44px] md:h-[16.44px]">
+    </a>
+    {% else %}
+    <span class="w-[35px] h-[35px] flex items-center justify-center cursor-not-allowed opacity-60 sm:w-[38px] sm:h-[38px] lg:w-[50px] lg:h-[50px] md:w-[43px] md:h-[43px]">
+      <img src="{% static "home/assets/img/icons/next.svg" %}" alt="Next" class="lg:w-[32px] lg:h-[32px] md:w-[16.44px] md:h-[16.44px]">
+    </span>
+    {% endif %}
+
+  </div>
+</div>
+{% endif %}

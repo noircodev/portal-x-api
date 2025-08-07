@@ -1,0 +1,100 @@
+{% extends "account/base/base.html" %}
+{% load static %}
+{% block title %} Event List {% endblock title %}
+{% block extra_head %}
+{% endblock extra_head %}
+{% block content %}
+<!-- [ Main Content ] start -->
+<div class="row">
+  <!-- [ sample-page ] start -->
+  <div class="col-sm-12">
+    <div class="card table-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between p-sm-4 pb-sm-2">
+          <form class="form-search">
+            <i class="ph-duotone ph-magnifying-glass icon-search"></i>
+            <input type="search" name="q" value="{{form.q.value|default_if_none:""}}" class="form-control w-100" style="min-width: 450px;" placeholder="Search..." />
+            <button class="btn btn-search" style="padding: 0"><kbd>Search</kbd></button>
+          </form>
+          <a href="{% url "account_add_event" %}" class="btn btn-primary"> <i class="ti ti-plus f-18"></i> Add Event </a>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover tbl-product">
+            <thead>
+              <tr>
+                <th class="text-end">#</th>
+                <th>Event Title</th>
+                <th>Event Source</th>
+                <th class="text-end">City</th>
+                <th class="text-center">Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+
+              {% for event in events %}
+
+              <tr>
+                <td class="text-end">{{forloop.counter}}</td>
+                <td>
+                  <div class="row">
+                    <div class="col-auto pe-0">
+                      <img src="{{event.get_event_image}}" alt="user-image" class="wid-80 rounded" />
+                    </div>
+                    <div class="col">
+                      <h6 class="mb-1">{{event.title|truncatechars:'70'}}</h6>
+                    </div>
+                  </div>
+                </td>
+
+                <td>{{event.get_event_source_display}}</td>
+                <td class="text-end">{{event.city.city_name}}</td>
+                <td class="text-center">
+                  {% if event.is_active %}
+                  <i class="ph-duotone ph-check-circle text-success f-24" data-bs-toggle="tooltip" data-bs-title="active"></i>
+                  {% else %}
+                  <i class="ph-duotone ph-x-circle text-danger f-24" data-bs-toggle="tooltip" data-bs-title="completed"></i>
+                  {% endif %}
+
+                </td>
+
+                <td>
+                  <a href="{{event.link}}" target="_blank" class="avtar avtar-xs btn-link-secondary btn-pc-default" data-bs-toggle="offcanvas" data-bs-target="#productOffcanvas">
+                    <i class="ti ti-eye f-18"></i>
+                  </a>
+                  <a href="{% url "account_update_event" event.id %}" class="avtar avtar-xs btn-link-success btn-pc-default">
+                    <i class="ti ti-edit-circle f-18"></i>
+                  </a>
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#deleteEventModal{{event.id}}" class="avtar avtar-xs btn-link-danger btn-pc-default">
+                    <i class="ti ti-trash f-18"></i>
+                  </a>
+                </td>
+
+              </tr>
+              {% endfor %}
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card-footer">
+        {% include "account/includes/pagination.html" with queryset=events %}
+      </div>
+
+    </div>
+  </div>
+  <!-- [ sample-page ] end -->
+</div>
+<!-- [ Main Content ] end -->
+
+{% endblock content %}
+{% block modal %}
+{% include "account/includes/modal/delete_event_modal.html" with queryset=events %}
+
+{% endblock modal %}
+{% block extra_script %}
+
+
+{% endblock extra_script %}
+<!-- End Header -->

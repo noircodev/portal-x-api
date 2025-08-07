@@ -1,0 +1,279 @@
+{% extends "home/base/base.html" %}
+{% load static %}
+{% block title %}Submit Event {% endblock title %}
+
+{% block extra_head %}
+
+<!-- Flatpickr CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+{% endblock extra_head %}
+
+
+{% block content %}
+
+
+<div class="lg:flex lg:min-h-screen">
+  <!-- image container -->
+  <div class="hidden lg:flex heroImg lg:flex-1"></div>
+
+  <!-- event form container -->
+  <div class="lg:flex-1">
+    <div class="pl-[26px] pr-[26px] mt-[34px] md:pl-[52px] md:pr-[53px]">
+      <div class="font-jakarta">
+        <p class="text-[19.88px] font-bold text-(--primary-100) md:hidden">
+          Event Submission Form
+        </p>
+        <p class="hidden text-[38px] font-bold text-white md:block font-lufga tracking-[-0.76px]">
+          Submit Event
+        </p>
+        <p class="text-xs md:text-[16px] md:text-(--gray-500)">
+          Please fill out the details below to submit your event.
+        </p>
+      </div>
+
+      {% if form.errors %}
+      <div id="error-message" class="bg-red-500/10 backdrop-blur-lg relative p-6 w-full mx-auto rounded-xl border border-red-500/20 backdrop-blur-lg mt-5 relative">
+        <div class="flex items-start space-x-4">
+          <!-- Error Icon -->
+          <div class="flex-shrink-0 pt-1">
+            <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+
+          <!-- Content -->
+          <div class="flex-1 space-y-3">
+            <h3 class="text-xl font-semibold text-red-100">Submission Failed</h3>
+            <p class="text-red-200/80 text-sm">Please fix the following issues:</p>
+
+            <!-- Error List -->
+            <ul class="space-y-2.5 max-h-48 overflow-y-auto pr-4">
+              {% if form.non_field_errors %}
+              {% for error in form.non_field_errors %}
+              <li class="flex items-start space-x-2.5 text-red-100/90 group">
+                <svg class="w-4 h-4 flex-shrink-0 mt-0.5 text-red-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                <span class="flex-1 text-sm">{{error}}</span>
+              </li>
+              {% endfor %}
+              {% endif %}
+
+              {% for field in form %}
+              {% for error in field.errors %}
+              <li class="flex items-start space-x-2.5 text-red-100/90 group">
+                <svg class="w-4 h-4 flex-shrink-0 mt-0.5 text-red-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                <span class="flex-1 text-sm">{{error}}</span>
+              </li>
+              {% endfor %}
+              {% endfor %}
+            </ul>
+          </div>
+
+          <!-- Close Button -->
+          <button onclick="hideError()" class="absolute top-4 right-4 p-1.5 hover:bg-red-500/20 rounded-lg transition-colors">
+            <svg class="w-5 h-5 text-red-400 hover:text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="mt-[30px]">
+        <div class="font-jakarta font-medium text-[12.5px] tracking-[0.125px] flex gap-5 md:[14.68px] md:font-semibold md:p-[9.69px] md:w-max md:gap-[9.69px] md:boxShadow md:bg-[#fbfbfe14] md:rounded-[60.57px]">
+          <div class="pl-4.5 pr-4.5 pt-[5px] pb-[5px] text-(--neutral-100) h-[33px] rounded-[50px] cursor-pointer bg-(--gray-200) transition flex items-center justify-center tab active" onclick="showTab('form1')">
+            Submit Full Event
+          </div>
+          <div class="pl-4.5 pr-4.5 pt-[5px] pb-[5px] text-(--neutral-100) h-[33px] rounded-[50px] cursor-pointer bg-(--gray-200) transition flex items-center justify-center tab" onclick="showTab('form2')">
+            Submit Event URL
+          </div>
+        </div>
+
+        <div class="mt-[30px]">
+          <!-- submit full event form -->
+          <form id="form1" class="form-content active" action="." method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="event_source" value="user_submitted">
+
+            {% comment %}
+            <div class="flex">
+              <label for="event-image" id="drop-area" class="w-full h-[144px] rounded-lg border-2 border-dashed border-(--border-dash) bg-(--gray-200) transition-all duration-300 hover:border-cyan-500 hover:bg-gray-800/30 cursor-pointer">
+                <input type="file" id="event-image" name="event_image" class="" accept="image/png, image/jpg" hidden />
+                <div id="img-view" class="w-full h-full font-inter text-[11px] flex flex-col items-center justify-center py-6 bg-center bg-contain bg-no-repeat">
+                  <img src="{% static "home/assets/img/icons/backup.svg" %}" alt="upload icon" class="w-[36px] h-[36px]" id="default-icon" />
+                  <p class="mt-3" id="default-text">
+                    <span class="text-(--primary-100) font-semibold">Browse</span>
+                    to upload or drag and drop
+                  </p>
+                  <p class="mt-2" id="default-size">PNG, JPG up to 1MB</p>
+                  <div id="image-error" class="text-red-500 font-jakarta text-xs mt-2 hidden">
+                    File size must be less than 1MB
+                  </div>
+                </div>
+              </label>
+              <!-- Error Message -->
+              <div id="image-error" class="text-red-500 text-sm mt-2 hidden"></div>
+            </div>
+
+            {% endcomment %}
+
+
+            <div class="flex">
+              <div id="drop-area" class="w-full h-[144px] rounded-lg border-2 border-dashed border-(--border-dash) bg-(--gray-200) transition-all duration-300 hover:border-cyan-500 hover:bg-gray-800/30 cursor-pointer relative overflow-hidden">
+                <input type="file" id="event-image" name="event_image" class="hidden" accept="image/png, image/jpg" />
+
+                <!-- DEFAULT UPLOAD UI -->
+                <div id="img-view" class="w-full h-full font-inter text-[11px] flex flex-col items-center justify-center py-6 bg-center bg-contain bg-no-repeat">
+                  <img src="{% static "home/assets/img/icons/backup.svg" %}" alt="upload icon" class="w-[36px] h-[36px]" id="default-icon" />
+                  <p class="mt-3" id="default-text">
+                    <span class="text-(--primary-100) font-semibold">Browse</span>
+                    to upload or drag and drop
+                  </p>
+                  <p class="mt-2" id="default-size">PNG, JPG up to 1MB</p>
+                </div>
+
+                <!-- ERROR MESSAGE -->
+                <div id="image-error" class="absolute bottom-2 left-2 right-2 text-red-400 font-jakarta text-xs hidden bg-gray-900/80 rounded px-2 py-1">
+                  File size must be less than 1MB
+                </div>
+              </div>
+            </div>
+
+
+            <div class="flex flex-col gap-6 mt-6">
+              <div class="md:flex md:items-center md:justify-between md:gap-[30px]">
+                <div class="md:flex-1">
+                  <label for="title" class="text-[13.03px] font-medium font-jakarta">Event Name
+                    <span class="text-(--active-100)">*</span></label>
+                  <input type="text" id="title" name="title" value="{{form.title.value|default_if_none:''}}" placeholder="Enter Event Name" class="w-full text-sm placeholder:text-(--gray-100) h-14 rounded-[6px] p-4 bg-(--gray-200) outline-none focus:ring-2 focus:ring-(--border-rings)" required />
+                </div>
+
+                <div class="mt-6 md:m-0">
+                  <label for="start_date" class="text-[13.03px] font-medium font-jakarta">Date <span class="text-(--active-100)">*</span></label>
+                  <input type="text" id="start_date" name="start_date" value="{{form.start_date.value|default_if_none:''}}" placeholder="Select date" class="w-full text-sm placeholder:text-(--gray-100) h-14 rounded-[6px] p-4 bg-(--gray-200) outline-none custom-date-picker focus:ring-2 focus:ring-(--border-rings)" required />
+                </div>
+              </div>
+
+              <div class="md:flex md:gap-[30px] md:items-center md:justify-between">
+                <div class="md:flex-1">
+                  <label for="location" class="text-[13.03px] font-medium font-jakarta">Location
+                    <span class="text-(--active-100)">*</span></label>
+
+                  <div class="relative w-full">
+                    <select name="location" id="location" class="w-full appearance-none text-sm h-14 rounded-[6px] px-4 bg-(--gray-200) outline-none cursor-pointer focus:ring-2 focus:ring-(--border-rings)" required>
+                      <option value="" disabled selected>Select a location</option>
+                      {% for location in locations %}
+                      <option value="{{location.id}}" {% if form.location.value == location.id|stringformat:"s" %} selected {% endif %} class="bg-(--gray-200) text-black">
+                        {{location.state_name}}, {{location.state_code|upper}}
+                      </option>
+                      {% endfor %}
+                    </select>
+
+                    <img src="{% static "home/assets/img/icons/select.svg" %}" alt="" class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none text-[--gray-100]" />
+                  </div>
+                </div>
+
+                <div class="mt-6 md:m-0 md:flex-1">
+                  <label for="link" class="text-[13.03px] font-medium font-jakarta">Event Link</label>
+                  <input type="url" id="link" name="link" value="{{form.link.value|default_if_none:''}}" placeholder="Enter event link (optional)" class="w-full text-sm placeholder:text-(--gray-100) h-14 rounded-[6px] p-4 bg-(--gray-200) outline-none focus:ring-2 focus:ring-(--border-rings)" />
+                </div>
+              </div>
+
+              <div>
+                <label for="venue" class="text-[13.03px] font-medium font-jakarta">Event Venue
+                  <span class="text-(--active-100)">*</span></label>
+                <input type="text" id="venue" name="venue" value="{{form.venue.value|default_if_none:''}}" placeholder="Enter venue name" class="w-full text-sm placeholder:text-(--gray-100) h-14 rounded-[6px] p-4 bg-(--gray-200) outline-none focus:ring-2 focus:ring-(--border-rings)" required />
+              </div>
+
+              <div>
+                <label for="description" class="text-[13.03px] font-medium font-jakarta">Description
+                  <span class="text-(--active-100)">*</span></label>
+                <textarea id="description" name="description" placeholder="Describe your event..." class="w-full text-sm placeholder:text-(--gray-100) h-[83px] rounded-[6px] p-4 bg-(--gray-200) outline-none resize-none focus:ring-2 focus:ring-(--border-rings)" required>{{form.description.value|default_if_none:''}}</textarea>
+              </div>
+
+              <div class="md:flex md:items-center md:justify-between md:gap-[30px]">
+                <div class="md:flex-1">
+                  <label for="first_name" class="text-[13.03px] font-medium font-jakarta">First Name
+                    <span class="text-(--active-100)">*</span></label>
+                  <input type="text" id="first_name" name="first_name" value="{{form.first_name.value|default_if_none:''}}" placeholder="Enter first name" class="w-full text-sm placeholder:text-(--gray-100) h-14 rounded-[6px] p-4 bg-(--gray-200) outline-none focus:ring-2 focus:ring-(--border-rings)" required />
+                </div>
+
+                <div class="mt-6 md:m-0 md:flex-1">
+                  <label for="last_name" class="text-[13.03px] font-medium font-jakarta">Last Name
+                    <span class="text-(--active-100)">*</span></label>
+                  <input type="text" id="last_name" name="last_name" value="{{form.last_name.value|default_if_none:''}}" placeholder="Enter last name" class="w-full text-sm placeholder:text-(--gray-100) h-14 rounded-[6px] p-4 bg-(--gray-200) outline-none focus:ring-2 focus:ring-(--border-rings)" required />
+                </div>
+              </div>
+
+              <div class="md:flex md:items-center md:justify-between md:gap-[30px] md:flex-row-reverse">
+                <div class="md:flex-1">
+                  <label for="phone" class="text-[13.03px] font-medium font-jakarta">Phone Number</label>
+                  <input type="tel" id="phone" name="phone" value="{{form.phone.value|default_if_none:''}}" placeholder="Enter phone number" class="w-full text-sm placeholder:text-(--gray-100) h-14 rounded-[6px] p-4 bg-(--gray-200) outline-none focus:ring-2 focus:ring-(--border-rings)" />
+                </div>
+
+                <div class="mt-6 md:m-0 md:flex-1">
+                  <label for="email" class="text-[13.03px] font-medium font-jakarta">Email Address
+                    <span class="text-(--active-100)">*</span></label>
+                  <input type="email" id="email" name="email" value="{{form.email.value|default_if_none:''}}" placeholder="Enter email address" class="w-full text-sm placeholder:text-(--gray-100) h-14 rounded-[6px] p-4 bg-(--gray-200) outline-none focus:ring-2 focus:ring-(--border-rings)" required />
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-center gap-3 mt-[26px]">
+              <input type="checkbox" id="create_account" name="create_account" {% if form.create_account.value %}checked{% endif %} class="accent-(--primary-100) cursor-pointer" />
+              <label for="create_account" class="text-xs">Do you wish to have an account created for you?</label>
+            </div>
+
+            <button type="submit" value="event" name="submission_type" class="px-10 py-2.5 rounded-lg bg-(--blue-100) text-(--primary-900) w-full mt-[26px] font-jakarta font-bold flex items-center justify-center md:px-[13px] md:py-6 cursor-pointer">
+              Submit Event
+            </button>
+          </form>
+
+          <!-- submit event url form -->
+          <form id="form2" class="form-content mt-5" action="." method="POST">
+            {% csrf_token %}
+            <div class="mt-6">
+              <label for="event_url" class="text-[13.03px] font-medium font-jakarta">Event URL <span class="text-(--active-100)">*</span></label>
+              <input type="url" id="event_url" name="event_url" value="{{form.event_url.value|default_if_none:''}}" placeholder="https//example.com/event" class="w-full text-sm placeholder:text-(--gray-100) h-14 rounded-[6px] p-4 bg-(--gray-200) outline-none cursor-pointer focus:ring-2 focus:ring-(--border-rings)" required />
+            </div>
+
+            <button type="submit" value="link" name="submission_type" class="px-10 py-2.5 rounded-lg bg-(--blue-100) text-(--primary-900) w-full mt-[297px] font-jakarta font-bold flex items-center justify-center md:px-6 md:py-[13px] md:h-[67px] md:hidden cursor-pointer">
+              Submit Event
+            </button>
+
+            <button type="submit" value="link" name="submission_type" class="px-10 py-2.5 rounded-lg bg-(--blue-100) text-(--primary-900) w-full mt-[297px] font-jakarta font-bold items-center justify-center md:px-6 md:py-[13px] md:h-[67px] hidden md:flex md:mt-[46px]">
+              Submit URL
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block extra_script %}
+<script>
+  function showTab(tabId) {
+    // remove active class from all tabs and content
+    document.querySelectorAll(".tab").forEach((tab) => {
+      tab.classList.remove("active");
+    });
+    document.querySelectorAll(".form-content").forEach((content) => {
+      content.classList.remove("active");
+    });
+
+    // add active class to clicked tab and corresponding content
+    document
+      .querySelector(`[onclick="showTab('${tabId}')"]`)
+      .classList.add("active");
+    document.getElementById(tabId).classList.add("active");
+  }
+
+</script>
+{% endblock extra_script %}

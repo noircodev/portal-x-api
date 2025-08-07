@@ -1,0 +1,45 @@
+  {% load static %}
+  <header class="fixed top-0 z-50 w-full bg-(--background-color) pt-[19px] md:pt-0">
+    <!-- banner -->
+    <div id="banner" class="bg-(--primary-100) pr-6 items-center justify-center font-figtree relative hidden md:flex text-black md:h-[25px] lg:h-12 text-[10px] lg:text-[16px]">
+      <p class="">
+        Help us by submitting your events
+        <a href="{% url "event:submit_event" %}" class="font-bold underline">
+          Submit an event
+        </a>
+      </p>
+      <div id="closeBanner" class="absolute right-6 cursor-pointer h-[9.3px] w-[9.3px] lg:h-[18px] lg:w-[18px]">
+        <image src="{% static "home/assets/img/icons/close.svg" %}" alt="cancel" />
+      </div>
+    </div>
+    <!-- nav container -->
+    <nav id="navBar" class="px-6 lg:pl-16.5 lg:pr-[85px] md:border-b md:border-[#FFFFFF1A]">
+
+      <div class="flex items-center justify-between md:h-[52px] lg:h-[100px]">
+        <a href="{% url "event:home" %}" class="font-oswald text-[19.88px] tracking-[-0.24px] md:text-[15.54px] md:leading-[21px] md:tracking-[0.012] lg:text-[30.08px] lg:tracking-[-0.361px]">
+          PORTAL <span class="text-(--primary-100)">X</span>
+        </a>
+        <div class="md:hidden">
+          <img id="openMenu" src="{% static "home/assets/img/icons/menu.svg" %}" alt="menu" class="cursor-pointer" />
+          <img id="closeMenu" src="{% static "home/assets/img/icons/closeMenu.svg" %}" alt="menu" class="hidden cursor-pointer" />
+        </div>
+        <div class="hidden md:flex gap-4.5 font-jakarta md:text-[12px] lg:text-[18px] font-medium md:tracking-[0.02px] lg:tracking-[-0.36px] items-center justify-between">
+          <a href="{% url "event:home" %}" class="p-[5.17px] nav-link-active">Home</a>
+          <a href="{% url "event:submit_event" %}" class="p-[5.17px] nav-link-active">Submit an Event</a>
+          <a href="{% url "event:join_beta" %}" class="p-[5.17px] nav-link-active">Join the Beta</a>
+          <!-- donate link -->
+          <a target="_blank" href="https://pages.donately.com/noirlabs/campaign/launch-portal-x/donate" rel="noopener noreferrer" class="p-[5.17px] underline nav-link-active">Donate</a>
+        </div>
+      </div>
+      <!-- mobile dropdown nav -->
+      <div id="dropdownMenu" class="hidden md:hidden mt-[83px] transition-all duration-300 ease-in-out transform opacity-0 -translate-y-4 h-dvh max-h-dvh overflow-y-auto pb-[80px] navScroll">
+        <div class="flex flex-col text-[20px] tracking-[-0.24px] font-semibold font-jakarta gap-[23px]">
+          <a href="{% url "event:home" %}" class="p-2.5 nav-link-active flex items-center justify-between">Home</a>
+          <a href="{% url "event:submit_event" %}" class="p-2.5 nav-link-active flex items-center justify-between">Submit an Event</a>
+          <a href="{% url "event:join_beta" %}" class="p-2.5 nav-link-active flex items-center justify-between">Join the Beta</a>
+          <!-- donate link -->
+          <a target="_blank" href="https://pages.donately.com/noirlabs/campaign/launch-portal-x/donate" rel="noopener noreferrer" class="p-2.5 nav-link-active flex items-center justify-between">Donate</a>
+        </div>
+      </div>
+    </nav>
+  </header>

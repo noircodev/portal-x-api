@@ -1,0 +1,179 @@
+{% extends "account/base/base.html" %}
+{% load static %}
+{% block title %} Account Notifications {% endblock title %}
+
+
+{% block extra_head %}
+
+{% endblock extra_head %}
+
+{% block content %}
+<!-- [ Main Content ] start -->
+<div class="row justify-content-center">
+  <div class="col-xl-10 col-lg-12 help-main">
+    <div class="card">
+      <div class="card-body">
+        <nav class="navbar justify-content-between p-0 align-items-center">
+          <h5>Recent Notifications </h5>
+          <div class="btn-group btn-group-sm help-filter" role="group" aria-label="button groups sm">
+            <a class="btn btn-light-secondary" onclick='filterchange("sm")'><i class="feather icon-align-justify m-0"></i></a>
+            <a class="btn btn-light-secondary" onclick='filterchange("md")'><i class="feather icon-menu m-0"></i></a>
+            <a class="btn btn-light-secondary active" onclick='filterchange("large")'><i class="feather icon-grid m-0"></i></a>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="card ticket-card">
+      <div class="card-body">
+        <div class="row">
+
+          <div class="col">
+            <div class="popup-trigger">
+              <div class="help-sm-hidden">
+                <ul class="list-unstyled mt-2 mb-0 text-muted">
+
+                  <li class="d-sm-inline-block d-block mt-1"><i class="wid-20 material-icons-two-tone text-center f-14 me-2">calendar_today</i>Updated 22 hours ago</li>
+
+                </ul>
+              </div>
+              <div class="h5 mt-3"><i class="material-icons-two-tone f-16 me-1">lock</i> Theme customisation issue</div>
+              <div class="help-md-hidden">
+                <div class="bg-body mb-3 p-3">
+                  <h6><img src="../assets/images/user/avatar-5.jpg" alt="" class="wid-20 avatar me-2 rounded" />Last comment from
+                    <a href="#" class="link-secondary">Robert alia:</a></h6>
+                  <p class="mb-0"><b>hello John lui</b>,<br />
+                    you need to create <b>"toolbar-options" div only</b> once in a page&nbsp;in your code,<br />
+                    this div fill found every "td" tag in your page,<br />
+                    just remove those things and also in option button add
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-2">
+              <a href="helpdesk-ticket-details.html" class="me-2 btn btn-sm btn-light-primary"><i class="feather icon-eye mx-1"></i>View Ticket</a>
+              <a href="#" class="me-3 btn btn-sm btn-light-danger"><i class="feather icon-trash-2 mx-1"></i>Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card ticket-card open-ticket">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-auto mb-3 mb-sm-0">
+            <div class="d-sm-inline-block d-flex align-items-center">
+              <img class="media-object wid-60 img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image " />
+              <div class="ms-3 ms-sm-0 mb-3 mb-sm-0">
+                <ul class="text-sm-center list-unstyled mt-2 mb-0 d-inline-block">
+                  <li class="list-unstyled-item"><a href="#" class="link-secondary">1 Ticket</a></li>
+                  <li class="list-unstyled-item"><a href="#" class="link-danger"><i class="fas fa-heart"></i> 3</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="popup-trigger">
+              <div class="h5 font-weight-bold">John lui <small class="badge bg-light-secondary ms-2">Replied</small></div>
+              <div class="help-sm-hidden">
+                <ul class="list-unstyled mt-2 mb-0 text-muted">
+                  <li class="d-sm-inline-block d-block mt-1"><img src="../assets/images/admin/p1.jpg" alt="" class="wid-20 rounded me-2 img-fluid" />Piaf able</li>
+                  <li class="d-sm-inline-block d-block mt-1"><img src="../assets/images/user/avatar-5.jpg" alt="" class="wid-20 rounded me-2 img-fluid" />Assigned to
+                    <b>Robert alia</b>
+                  </li>
+                  <li class="d-sm-inline-block d-block mt-1"><i class="wid-20 material-icons-two-tone text-center f-14 me-2">calendar_today</i>Updated 22 hours ago</li>
+                  <li class="d-sm-inline-block d-block mt-1"><i class="wid-20 material-icons-two-tone text-center f-14 me-2">chat</i>9
+                  </li>
+                </ul>
+              </div>
+              <div class="h5 mt-3"><i class="material-icons-two-tone f-16 me-1">lock</i> Theme customisation issue</div>
+              <div class="help-md-hidden">
+                <div class="bg-body mb-3 p-3">
+                  <h6><img src="../assets/images/user/avatar-5.jpg" alt="" class="wid-20 avatar me-2 rounded" />Last comment from
+                    <a href="#" class="link-secondary">Robert alia:</a></h6>
+                  <p class="mb-0"><b>hello John lui</b>,<br />
+                    you need to create <b>"toolbar-options" div only</b> once in a page&nbsp;in your code,<br />
+                    this div fill found every "td" tag in your page,<br />
+                    just remove those things and also in option button add
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-2">
+              <a href="helpdesk-ticket-details.html" class="me-2 btn btn-sm btn-light-primary"><i class="feather icon-eye mx-1"></i>View Ticket</a>
+              <a href="#" class="me-3 btn btn-sm btn-light-danger"><i class="feather icon-trash-2 mx-1"></i>Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card ticket-card close-ticket">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-auto mb-3 mb-sm-0">
+            <div class="d-sm-inline-block d-flex align-items-center">
+              <img class="media-object wid-60 img-radius" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image " />
+              <div class="ms-3 ms-sm-0 mb-3 mb-sm-0">
+                <ul class="text-sm-center list-unstyled mt-2 mb-0 d-inline-block">
+                  <li class="list-unstyled-item"><a href="#" class="link-secondary">1 Ticket</a></li>
+                  <li class="list-unstyled-item"><a href="#" class="link-danger"><i class="fas fa-heart"></i> 3</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="popup-trigger">
+              <div class="h5 font-weight-bold">John lui <small class="badge bg-light-secondary ms-2">Replied</small></div>
+              <div class="help-sm-hidden">
+                <ul class="list-unstyled mt-2 mb-0 text-muted">
+                  <li class="d-sm-inline-block d-block mt-1"><img src="../assets/images/admin/p1.jpg" alt="" class="wid-20 rounded me-2 img-fluid" />Piaf able</li>
+                  <li class="d-sm-inline-block d-block mt-1"><img src="../assets/images/user/avatar-5.jpg" alt="" class="wid-20 rounded me-2 img-fluid" />Assigned to
+                    <b>Robert alia</b>
+                  </li>
+                  <li class="d-sm-inline-block d-block mt-1"><i class="wid-20 material-icons-two-tone text-center f-14 me-2">calendar_today</i>Updated 22 hours ago</li>
+                  <li class="d-sm-inline-block d-block mt-1"><i class="wid-20 material-icons-two-tone text-center f-14 me-2">chat</i>9
+                  </li>
+                </ul>
+              </div>
+              <div class="h5 mt-3"><i class="material-icons-two-tone f-16 me-1">lock</i> Theme customisation issue</div>
+              <div class="help-md-hidden">
+                <div class="bg-body mb-3 p-3">
+                  <h6><img src="../assets/images/user/avatar-5.jpg" alt="" class="wid-20 avatar me-2 rounded" />Last comment from
+                    <a href="#" class="link-secondary">Robert alia:</a></h6>
+                  <p class="mb-0"><b>hello John lui</b>,<br />
+                    you need to create <b>"toolbar-options" div only</b> once in a page&nbsp;in your code,<br />
+                    this div fill found every "td" tag in your page,<br />
+                    just remove those things and also in option button add
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-2">
+              <a href="helpdesk-ticket-details.html" class="me-2 btn btn-sm btn-light-primary"><i class="feather icon-eye mx-1"></i>View Ticket</a>
+              <a href="#" class="me-3 btn btn-sm btn-light-danger"><i class="feather icon-trash-2 mx-1"></i>Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- [ Main Content ] end -->
+{% endblock content %}
+
+{% block modal %}
+
+{% endblock modal %}
+
+{% block extra_script %}
+<script>
+  $(function() {
+    // "use strict";
+
+
+
+  });
+
+</script>
+
+{% endblock extra_script %}
