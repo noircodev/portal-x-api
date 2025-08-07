@@ -1,5 +1,5 @@
 [project]
-name = "Portal_X"
+name = "portal_x"
 version = "0.1.0"
 description = "Portal X Event Project - Proprietary Event Aggregator System"
 authors = [{ name = "NoirLabs", email = "dev@noirlabs.org" }]
@@ -44,6 +44,8 @@ dependencies = [
     "py-cpuinfo>=9.0.0",
     "psutil>=7.0.0",
     "django-cors-headers>=4.7",
+    "drf-spectacular==0.28.0",
+    "drf-spectacular-sidecar==2025.8.1",
 ]
 
 [project.optional-dependencies]
